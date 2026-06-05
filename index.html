@@ -1086,6 +1086,38 @@
     color: rgba(255,255,255,.4);
     text-transform: uppercase;
   }
+  .sponsors-subhead {
+    margin: 60px 0 26px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    font-size: 11px;
+    letter-spacing: .35em;
+    text-transform: uppercase;
+    color: var(--blue);
+    font-weight: 700;
+  }
+  .sponsors-subhead::before, .sponsors-subhead::after {
+    content: ""; height: 1px; background: rgba(0,212,255,.35); flex: 1;
+  }
+  .bet-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+  }
+  .sponsor--bet .sponsor__age {
+    position: absolute;
+    top: 8px; right: 8px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    font-size: 9px;
+    letter-spacing: .08em;
+    color: rgba(255,255,255,.45);
+    border: 1px solid rgba(255,255,255,.25);
+    padding: 2px 5px;
+    z-index: 2;
+  }
+  .sponsor--bet:hover .sponsor__age { color: var(--blue); border-color: var(--blue); }
   .sponsor {
     aspect-ratio: 16/9;
     border: 1px solid var(--gray-line);
@@ -1210,6 +1242,7 @@
     .champ-grid { grid-template-columns: 1fr; gap: 48px; }
     .portrait { max-width: 380px; margin: 0 auto; }
     .sponsors-grid { grid-template-columns: repeat(2, 1fr); }
+    .bet-grid { grid-template-columns: repeat(2, 1fr); }
     .media-grid { grid-template-columns: 1fr; gap: 20px; }
     .bout__avatar { width: 64px; height: 64px; flex-basis: 64px; }
     section { padding: 96px 0; }
@@ -1659,6 +1692,15 @@
       <div class="sponsor reveal" translate="no">CABLEONDA</div>
     </div>
     <p class="sponsors-note" data-i18n="sponsors.note">Logos de demostración. Marcas mostradas con fines ilustrativos — sin afiliación ni acuerdo vigente.</p>
+
+    <div class="sponsors-subhead" data-i18n="sponsors.betHead">CASAS DE APUESTAS</div>
+    <div class="bet-grid">
+      <div class="sponsor sponsor--bet reveal" translate="no">BETCRIS<span class="sponsor__age">+18</span></div>
+      <div class="sponsor sponsor--bet reveal" translate="no">CODERE<span class="sponsor__age">+18</span></div>
+      <div class="sponsor sponsor--bet reveal" translate="no">RIVALO<span class="sponsor__age">+18</span></div>
+      <div class="sponsor sponsor--bet reveal" translate="no">1XBET<span class="sponsor__age">+18</span></div>
+    </div>
+    <p class="sponsors-note" data-i18n="sponsors.betNote">+18 · Juega con responsabilidad. Logos de demostración — sin afiliación ni acuerdo vigente. Apuestas reguladas por la Junta de Control de Juegos de Panamá.</p>
   </div>
 </section>
 
@@ -1794,6 +1836,8 @@ const dict = {
     "sponsors.titleB": "PATROCINADORES",
     "sponsors.meta": "MARCAS ALIADAS<br/>EJEMPLOS DE DEMO",
     "sponsors.note": "Logos de demostración. Marcas mostradas con fines ilustrativos — sin afiliación ni acuerdo vigente.",
+    "sponsors.betHead": "CASAS DE APUESTAS",
+    "sponsors.betNote": "+18 · Juega con responsabilidad. Logos de demostración — sin afiliación ni acuerdo vigente. Apuestas reguladas por la Junta de Control de Juegos de Panamá.",
 
     "contact.kicker": "CONTACTO",
     "contact.titleA": "SUBE",
@@ -1901,6 +1945,8 @@ const dict = {
     "sponsors.titleB": "PARTNERS",
     "sponsors.meta": "ALLIED BRANDS<br/>DEMO EXAMPLES",
     "sponsors.note": "Demo logos. Brands shown for illustration only — no affiliation or active agreement.",
+    "sponsors.betHead": "BETTING PLATFORMS",
+    "sponsors.betNote": "18+ · Please gamble responsibly. Demo logos — no affiliation or active agreement. Betting regulated by Panama's Junta de Control de Juegos.",
 
     "contact.kicker": "CONTACT",
     "contact.titleA": "STEP",
