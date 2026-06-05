@@ -724,6 +724,133 @@
     color: rgba(255,255,255,.7);
   }
 
+  /* ===== MEDIA ===== */
+  .media { background: #050505; overflow: hidden; }
+  .media::before {
+    content: "";
+    position: absolute; left: -8%; top: 20%;
+    width: 40%; height: 60%;
+    background: radial-gradient(circle, rgba(0,212,255,.10), transparent 60%);
+    filter: blur(70px);
+    pointer-events: none;
+  }
+  .media-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px;
+    position: relative;
+  }
+  .media-card {
+    position: relative;
+    background: #080808;
+    border: 1px solid var(--gray-line);
+    overflow: hidden;
+    transition: border-color .3s var(--ease), transform .35s var(--ease);
+    display: flex;
+    flex-direction: column;
+  }
+  .media-card:hover {
+    border-color: var(--blue);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 60px rgba(0,212,255,.12);
+  }
+  .media-card__media {
+    position: relative;
+    aspect-ratio: 16/10;
+    overflow: hidden;
+    background: #000;
+  }
+  .media-card__media img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
+    filter: grayscale(100%) contrast(1.1) brightness(.82);
+    transform: scale(1.02);
+    transition: transform .8s var(--ease), filter .5s var(--ease);
+  }
+  .media-card:hover .media-card__media img {
+    transform: scale(1.08);
+    filter: grayscale(0%) contrast(1.05) brightness(.92);
+  }
+  .media-card__media::after {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(to bottom, rgba(0,0,0,.2) 0%, rgba(0,0,0,.65) 100%),
+      repeating-linear-gradient(to bottom, rgba(0,0,0,.18) 0 1px, transparent 1px 4px);
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+  .media-card__type {
+    position: absolute;
+    top: 18px; left: 18px;
+    z-index: 2;
+    background: var(--blue);
+    color: var(--black);
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    font-size: 11px;
+    letter-spacing: .26em;
+    padding: 6px 12px;
+  }
+  .media-card__count {
+    position: absolute;
+    top: 18px; right: 18px;
+    z-index: 2;
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    font-size: 11px;
+    letter-spacing: .2em;
+    color: rgba(255,255,255,.7);
+    border: 1px solid rgba(255,255,255,.3);
+    padding: 6px 10px;
+    background: rgba(0,0,0,.4);
+    backdrop-filter: blur(4px);
+  }
+  .media-card__body {
+    padding: 26px 24px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex: 1;
+  }
+  .media-card__title {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    font-size: clamp(22px, 2.2vw, 30px);
+    line-height: 1;
+    letter-spacing: -.015em;
+  }
+  .media-card__desc {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.55;
+    color: rgba(255,255,255,.65);
+  }
+  .media-card__sponsor {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px dashed rgba(0,212,255,.25);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .media-card__sponsor span {
+    font-size: 10px;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.5);
+  }
+  .media-card__sponsor strong {
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    font-size: 13px;
+    letter-spacing: .14em;
+    color: var(--blue);
+    text-transform: uppercase;
+  }
+
   /* ===== SPONSORS ===== */
   .sponsors-grid {
     display: grid;
@@ -854,6 +981,7 @@
     .champ-grid { grid-template-columns: 1fr; gap: 48px; }
     .portrait { max-width: 380px; margin: 0 auto; }
     .sponsors-grid { grid-template-columns: repeat(2, 1fr); }
+    .media-grid { grid-template-columns: 1fr; gap: 20px; }
     .bout__avatar { width: 64px; height: 64px; flex-basis: 64px; }
     section { padding: 96px 0; }
     .section__head { flex-direction: column; align-items: flex-start; }
@@ -1097,6 +1225,70 @@
   </div>
 </section>
 
+<section class="media" id="medios">
+  <div class="container">
+    <div class="section__head reveal">
+      <div>
+        <p class="section__kicker" data-i18n="media.kicker">MEDIOS</p>
+        <h2 class="section__title"><span data-i18n="media.titleA">PLATAFORMAS</span> <em data-i18n="media.titleB">DE CONTENIDO</em></h2>
+      </div>
+      <div class="section__meta" data-i18n="media.meta">TITLE SPONSORS DISPONIBLES<br/>OPORTUNIDAD COMERCIAL</div>
+    </div>
+
+    <div class="media-grid">
+
+      <article class="media-card reveal">
+        <div class="media-card__media">
+          <span class="media-card__type" data-i18n="media.typeRadio">RADIO</span>
+          <span class="media-card__count" data-i18n="media.radioCount">SEMANAL</span>
+          <img src="https://images.pexels.com/photos/4319926/pexels-photo-4319926.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Radio show microphone (stock placeholder)" loading="lazy" />
+        </div>
+        <div class="media-card__body">
+          <h3 class="media-card__title" data-i18n="media.radioTitle">Esquina del Campeón</h3>
+          <p class="media-card__desc" data-i18n="media.radioDesc">Programa semanal de boxeo con Chemito Moreno: análisis de carteleras, entrevistas a fighters y noticias del ring nacional e internacional.</p>
+          <div class="media-card__sponsor">
+            <span data-i18n="media.titleSponsor">TITLE SPONSOR</span>
+            <strong data-i18n="media.slotAvail">[ ESPACIO DISPONIBLE ]</strong>
+          </div>
+        </div>
+      </article>
+
+      <article class="media-card reveal">
+        <div class="media-card__media">
+          <span class="media-card__type" data-i18n="media.typeInterview">ENTREVISTAS</span>
+          <span class="media-card__count" data-i18n="media.interviewCount">ON-DEMAND</span>
+          <img src="https://images.pexels.com/photos/33923588/pexels-photo-33923588.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Interview studio session (stock placeholder)" loading="lazy" />
+        </div>
+        <div class="media-card__body">
+          <h3 class="media-card__title" data-i18n="media.interviewTitle">Cara a Cara</h3>
+          <p class="media-card__desc" data-i18n="media.interviewDesc">Conversaciones largas con leyendas del boxeo, prospectos panameños y figuras del deporte mundial. Distribuidas en video y audio.</p>
+          <div class="media-card__sponsor">
+            <span data-i18n="media.presentedBy">PRESENTADO POR</span>
+            <strong data-i18n="media.slotAvail2">[ ESPACIO DISPONIBLE ]</strong>
+          </div>
+        </div>
+      </article>
+
+      <article class="media-card reveal">
+        <div class="media-card__media">
+          <span class="media-card__type" data-i18n="media.typeArticles">ARTÍCULOS</span>
+          <span class="media-card__count" data-i18n="media.articlesCount">SEMANAL</span>
+          <img src="https://images.pexels.com/photos/9305286/pexels-photo-9305286.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Newspaper press (stock placeholder)" loading="lazy" />
+        </div>
+        <div class="media-card__body">
+          <h3 class="media-card__title" data-i18n="media.articlesTitle">Prensa Premium</h3>
+          <p class="media-card__desc" data-i18n="media.articlesDesc">Editoriales, crónicas de cartelera y análisis técnico publicados en lagunaboxing.com y medios aliados de Panamá.</p>
+          <div class="media-card__sponsor">
+            <span data-i18n="media.sponsoredBy">PATROCINADO POR</span>
+            <strong data-i18n="media.slotAvail3">[ ESPACIO DISPONIBLE ]</strong>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
 <section class="sponsors" id="patrocinadores">
   <div class="container">
     <div class="section__head reveal">
@@ -1196,6 +1388,29 @@ const dict = {
     "champ.statCrowned": "CORONADO CAMPEÓN MUNDIAL",
     "champ.tag": "DEMO · IMAGEN DE ARCHIVO",
 
+    "media.kicker": "MEDIOS",
+    "media.titleA": "PLATAFORMAS",
+    "media.titleB": "DE CONTENIDO",
+    "media.meta": "TITLE SPONSORS DISPONIBLES<br/>OPORTUNIDAD COMERCIAL",
+    "media.typeRadio": "RADIO",
+    "media.radioCount": "SEMANAL",
+    "media.radioTitle": "Esquina del Campeón",
+    "media.radioDesc": "Programa semanal de boxeo con Chemito Moreno: análisis de carteleras, entrevistas a fighters y noticias del ring nacional e internacional.",
+    "media.titleSponsor": "TITLE SPONSOR",
+    "media.typeInterview": "ENTREVISTAS",
+    "media.interviewCount": "ON-DEMAND",
+    "media.interviewTitle": "Cara a Cara",
+    "media.interviewDesc": "Conversaciones largas con leyendas del boxeo, prospectos panameños y figuras del deporte mundial. Distribuidas en video y audio.",
+    "media.presentedBy": "PRESENTADO POR",
+    "media.typeArticles": "ARTÍCULOS",
+    "media.articlesCount": "SEMANAL",
+    "media.articlesTitle": "Prensa Premium",
+    "media.articlesDesc": "Editoriales, crónicas de cartelera y análisis técnico publicados en lagunaboxing.com y medios aliados de Panamá.",
+    "media.sponsoredBy": "PATROCINADO POR",
+    "media.slotAvail": "[ ESPACIO DISPONIBLE ]",
+    "media.slotAvail2": "[ ESPACIO DISPONIBLE ]",
+    "media.slotAvail3": "[ ESPACIO DISPONIBLE ]",
+
     "sponsors.kicker": "SPONSORS",
     "sponsors.titleA": "NUESTROS",
     "sponsors.titleB": "PATROCINADORES",
@@ -1258,6 +1473,29 @@ const dict = {
     "champ.statWins": "PRO WINS",
     "champ.statCrowned": "CROWNED WORLD CHAMPION",
     "champ.tag": "DEMO · STOCK IMAGE",
+
+    "media.kicker": "MEDIA",
+    "media.titleA": "CONTENT",
+    "media.titleB": "PLATFORMS",
+    "media.meta": "TITLE SPONSORSHIPS AVAILABLE<br/>COMMERCIAL OPPORTUNITY",
+    "media.typeRadio": "RADIO",
+    "media.radioCount": "WEEKLY",
+    "media.radioTitle": "Champion's Corner",
+    "media.radioDesc": "Weekly boxing show with Chemito Moreno: card analysis, fighter interviews, and ringside news from Panama and around the world.",
+    "media.titleSponsor": "TITLE SPONSOR",
+    "media.typeInterview": "INTERVIEWS",
+    "media.interviewCount": "ON-DEMAND",
+    "media.interviewTitle": "Face to Face",
+    "media.interviewDesc": "Long-form conversations with boxing legends, Panamanian prospects, and global sports figures. Distributed in video and audio.",
+    "media.presentedBy": "PRESENTED BY",
+    "media.typeArticles": "ARTICLES",
+    "media.articlesCount": "WEEKLY",
+    "media.articlesTitle": "Premium Press",
+    "media.articlesDesc": "Editorials, fight-card recaps, and technical analysis published on lagunaboxing.com and partner outlets across Panama.",
+    "media.sponsoredBy": "SPONSORED BY",
+    "media.slotAvail": "[ SLOT AVAILABLE ]",
+    "media.slotAvail2": "[ SLOT AVAILABLE ]",
+    "media.slotAvail3": "[ SLOT AVAILABLE ]",
 
     "sponsors.kicker": "SPONSORS",
     "sponsors.titleA": "OUR",
