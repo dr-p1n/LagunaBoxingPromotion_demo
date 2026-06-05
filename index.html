@@ -13,16 +13,16 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://images.pexels.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@900&display=swap" rel="stylesheet" />
 
 <style>
   :root {
-    --black: #000000;
+    --black: #000;
     --blue: #00d4ff;
     --blue-dim: #008fb3;
-    --white: #ffffff;
-    --gray: #1a1a1a;
-    --gray-line: #222;
+    --white: #fff;
+    --gray-line: #1d1d1d;
     --gray-soft: #2a2a2a;
     --ease: cubic-bezier(.2,.8,.2,1);
   }
@@ -44,11 +44,11 @@
   a { color: inherit; text-decoration: none; }
   button { font: inherit; cursor: pointer; }
 
-  .container {
-    width: 100%;
-    max-width: 1240px;
-    margin: 0 auto;
-    padding: 0 28px;
+  .container { width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 28px; }
+
+  /* All photographic media is treated B&W */
+  .bw {
+    filter: grayscale(100%) contrast(1.08) brightness(.92);
   }
 
   /* ===== NAV ===== */
@@ -63,22 +63,21 @@
     background: linear-gradient(to bottom, rgba(0,0,0,.85), rgba(0,0,0,0));
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
-    transition: background .3s var(--ease);
+    transition: background .3s var(--ease), border-color .3s var(--ease);
+    border-bottom: 1px solid transparent;
   }
-  .nav.scrolled { background: rgba(0,0,0,.92); border-bottom: 1px solid var(--gray-line); }
+  .nav.scrolled { background: rgba(0,0,0,.92); border-bottom-color: var(--gray-line); }
 
   .nav__brand {
     font-family: 'Inter', sans-serif;
     font-weight: 900;
-    letter-spacing: .12em;
+    letter-spacing: .14em;
     font-size: 14px;
   }
   .nav__brand span { color: var(--blue); }
 
   .nav__lang {
     display: inline-flex;
-    align-items: center;
-    gap: 0;
     border: 1px solid var(--gray-soft);
     border-radius: 2px;
     overflow: hidden;
@@ -93,10 +92,7 @@
     padding: 8px 14px;
     transition: background .2s var(--ease), color .2s var(--ease);
   }
-  .nav__lang button[aria-pressed="true"] {
-    background: var(--blue);
-    color: var(--black);
-  }
+  .nav__lang button[aria-pressed="true"] { background: var(--blue); color: var(--black); }
   .nav__lang button:not([aria-pressed="true"]):hover { color: var(--blue); }
 
   /* ===== HERO ===== */
@@ -109,45 +105,105 @@
     justify-content: center;
     overflow: hidden;
     text-align: center;
-    padding: 120px 24px 80px;
+    padding: 140px 24px 120px;
+    isolation: isolate;
   }
 
-  /* Animated grid + glow background */
-  .hero::before {
-    content: "";
-    position: absolute; inset: -10%;
-    background:
-      radial-gradient(ellipse 60% 50% at 50% 40%, rgba(0,212,255,.18), transparent 60%),
-      radial-gradient(ellipse 80% 60% at 50% 110%, rgba(0,212,255,.10), transparent 70%);
+  /* Background photo, Ken-Burns zoom */
+  .hero__bg {
+    position: absolute; inset: 0;
+    background-image: url('https://images.pexels.com/photos/24782482/pexels-photo-24782482.jpeg?auto=compress&cs=tinysrgb&w=1920');
+    background-size: cover;
+    background-position: 50% 40%;
+    filter: grayscale(100%) contrast(1.15) brightness(.6);
+    transform: scale(1.08);
+    animation: kenBurns 24s ease-in-out infinite alternate;
     z-index: 0;
+  }
+  @keyframes kenBurns {
+    0%   { transform: scale(1.08) translate3d(0,0,0); }
+    100% { transform: scale(1.18) translate3d(-1.5%, -1%, 0); }
+  }
+
+  /* Dark vignette */
+  .hero__veil {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 70% 55% at 50% 45%, rgba(0,0,0,.25), rgba(0,0,0,.85) 80%),
+      linear-gradient(to bottom, rgba(0,0,0,.55) 0%, rgba(0,0,0,.2) 35%, rgba(0,0,0,.85) 100%);
+    z-index: 1;
+  }
+
+  /* Electric blue glow */
+  .hero__glow {
+    position: absolute;
+    left: 50%; bottom: -10%;
+    width: 80%; height: 80%;
+    transform: translateX(-50%);
+    background: radial-gradient(ellipse at center, rgba(0,212,255,.35), transparent 60%);
+    filter: blur(40px);
+    z-index: 1;
+    pointer-events: none;
+    animation: pulseGlow 4s ease-in-out infinite;
+  }
+  @keyframes pulseGlow {
+    0%, 100% { opacity: .55; }
+    50% { opacity: .95; }
+  }
+
+  /* Scanlines */
+  .hero__scan {
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(255,255,255,.025) 0,
+      rgba(255,255,255,.025) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    mix-blend-mode: overlay;
+    z-index: 2;
     pointer-events: none;
   }
-  .hero::after {
-    content: "";
+
+  /* Halftone dot overlay */
+  .hero__dots {
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle, rgba(0,212,255,.18) 1px, transparent 1.5px);
+    background-size: 6px 6px;
+    mask-image: radial-gradient(ellipse 60% 50% at 50% 100%, black, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 100%, black, transparent 70%);
+    z-index: 2;
+    pointer-events: none;
+    opacity: .6;
+  }
+
+  /* Grid overlay */
+  .hero__grid {
     position: absolute; inset: 0;
     background-image:
       linear-gradient(to right, rgba(0,212,255,.06) 1px, transparent 1px),
       linear-gradient(to bottom, rgba(0,212,255,.06) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 40%, transparent 80%);
-    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 40%, transparent 80%);
-    z-index: 0;
+    background-size: 80px 80px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 80%);
+    z-index: 2;
     pointer-events: none;
-    animation: gridDrift 18s linear infinite;
+    animation: gridDrift 22s linear infinite;
   }
   @keyframes gridDrift {
     0% { background-position: 0 0, 0 0; }
-    100% { background-position: 60px 60px, 60px 60px; }
+    100% { background-position: 80px 80px, 80px 80px; }
   }
 
-  .hero__inner { position: relative; z-index: 2; max-width: 1100px; }
+  .hero__inner { position: relative; z-index: 5; max-width: 1100px; }
 
   .hero__eyebrow {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     font-size: 11px;
-    letter-spacing: .35em;
+    letter-spacing: .38em;
     font-weight: 700;
     color: var(--blue);
     text-transform: uppercase;
@@ -155,18 +211,18 @@
     opacity: 0;
   }
   .hero__eyebrow::before, .hero__eyebrow::after {
-    content: ""; width: 36px; height: 1px; background: var(--blue);
+    content: ""; width: 38px; height: 1px; background: var(--blue);
   }
 
   .hero__logo {
     font-family: 'Inter', sans-serif;
     font-weight: 900;
-    font-size: clamp(48px, 11vw, 168px);
+    font-size: clamp(52px, 12vw, 184px);
     line-height: .88;
     letter-spacing: -.03em;
     margin: 0;
     color: var(--white);
-    text-shadow: 0 0 60px rgba(0,212,255,.25);
+    text-shadow: 0 0 60px rgba(0,212,255,.25), 0 4px 30px rgba(0,0,0,.7);
     opacity: 0;
   }
   .hero__logo .pulse {
@@ -174,8 +230,8 @@
     animation: heroPulse 3.6s ease-in-out infinite;
   }
   @keyframes heroPulse {
-    0%, 100% { text-shadow: 0 0 60px rgba(0,212,255,.25), 0 0 0 rgba(0,212,255,0); }
-    50% { text-shadow: 0 0 80px rgba(0,212,255,.55), 0 0 24px rgba(0,212,255,.35); }
+    0%, 100% { text-shadow: 0 0 60px rgba(0,212,255,.3), 0 4px 30px rgba(0,0,0,.7); }
+    50% { text-shadow: 0 0 100px rgba(0,212,255,.7), 0 0 24px rgba(0,212,255,.45), 0 4px 30px rgba(0,0,0,.7); }
   }
 
   .hero__sub {
@@ -190,7 +246,7 @@
 
   .hero__tagline {
     font-size: clamp(16px, 1.8vw, 22px);
-    color: rgba(255,255,255,.78);
+    color: rgba(255,255,255,.85);
     letter-spacing: .04em;
     margin: 28px auto 40px;
     max-width: 720px;
@@ -216,53 +272,87 @@
     overflow: hidden;
     cursor: pointer;
   }
-  .btn::after {
-    content: "→";
-    transition: transform .25s var(--ease);
-  }
+  .btn::after { content: "→"; transition: transform .25s var(--ease); }
   .btn:hover {
     background: var(--white);
     box-shadow: 0 0 0 1px var(--blue), 0 0 40px rgba(0,212,255,.55), 0 0 80px rgba(0,212,255,.25);
     transform: translateY(-2px);
   }
   .btn:hover::after { transform: translateX(6px); }
-  .btn--ghost {
-    background: transparent;
-    color: var(--white);
-  }
-  .btn--ghost:hover {
-    background: var(--blue);
-    color: var(--black);
-  }
+  .btn--ghost { background: transparent; color: var(--white); }
+  .btn--ghost:hover { background: var(--blue); color: var(--black); }
   .hero__cta { opacity: 0; }
 
-  /* Scroll indicator */
-  .hero__scroll {
+  /* Hero stat strip */
+  .hero__strip {
     position: absolute;
-    bottom: 28px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 10px;
-    letter-spacing: .4em;
-    color: rgba(255,255,255,.55);
+    left: 0; right: 0; bottom: 0;
+    z-index: 5;
+    border-top: 1px solid rgba(255,255,255,.08);
+    background: linear-gradient(to top, rgba(0,0,0,.8), rgba(0,0,0,.2));
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 18px 28px;
+    font-size: 11px;
+    letter-spacing: .25em;
+    color: rgba(255,255,255,.6);
     text-transform: uppercase;
-    z-index: 2;
+    backdrop-filter: blur(4px);
   }
-  .hero__scroll::after {
-    content: "";
-    display: block;
-    width: 1px; height: 36px;
-    background: linear-gradient(to bottom, var(--blue), transparent);
-    margin: 12px auto 0;
-    animation: scrollLine 2.4s ease-in-out infinite;
+  .hero__strip > div { display: flex; gap: 10px; align-items: center; }
+  .hero__strip strong {
+    color: var(--blue);
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    font-size: 13px;
+    letter-spacing: .12em;
   }
-  @keyframes scrollLine {
-    0%, 100% { opacity: 0.2; transform: scaleY(.4); transform-origin: top; }
-    50% { opacity: 1; transform: scaleY(1); }
+  @media (max-width: 720px) {
+    .hero__strip { grid-template-columns: 1fr 1fr; gap: 12px 24px; padding: 14px 20px; font-size: 10px; }
   }
 
-  /* ===== SECTION SCAFFOLD ===== */
-  section { position: relative; padding: 120px 0; }
+  /* ===== TICKER / MARQUEE ===== */
+  .ticker {
+    border-top: 1px solid var(--gray-line);
+    border-bottom: 1px solid var(--gray-line);
+    background: #050505;
+    overflow: hidden;
+    position: relative;
+  }
+  .ticker__track {
+    display: flex;
+    gap: 64px;
+    white-space: nowrap;
+    padding: 26px 0;
+    animation: tickerScroll 40s linear infinite;
+    width: max-content;
+  }
+  .ticker__track:hover { animation-play-state: paused; }
+  .ticker__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 24px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    font-size: clamp(28px, 4vw, 56px);
+    letter-spacing: -.01em;
+    color: rgba(255,255,255,.12);
+  }
+  .ticker__item--blue { color: var(--blue); }
+  .ticker__dot {
+    width: 10px; height: 10px;
+    background: var(--blue);
+    transform: rotate(45deg);
+    flex: 0 0 10px;
+    box-shadow: 0 0 16px rgba(0,212,255,.7);
+  }
+  @keyframes tickerScroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* ===== SECTIONS SCAFFOLD ===== */
+  section { position: relative; padding: 130px 0; }
 
   .section__head {
     margin-bottom: 64px;
@@ -283,21 +373,16 @@
     align-items: center;
     gap: 10px;
   }
-  .section__kicker::before {
-    content: ""; width: 28px; height: 1px; background: var(--blue);
-  }
+  .section__kicker::before { content: ""; width: 28px; height: 1px; background: var(--blue); }
   .section__title {
     font-family: 'Inter', sans-serif;
     font-weight: 900;
-    font-size: clamp(36px, 6vw, 84px);
+    font-size: clamp(36px, 6.2vw, 92px);
     line-height: .95;
-    letter-spacing: -.02em;
+    letter-spacing: -.025em;
     margin: 0;
   }
-  .section__title em {
-    font-style: normal;
-    color: var(--blue);
-  }
+  .section__title em { font-style: normal; color: var(--blue); }
   .section__meta {
     font-size: 13px;
     letter-spacing: .12em;
@@ -317,7 +402,7 @@
     border: 1px solid var(--gray-line);
     border-left: 3px solid var(--blue);
     background: linear-gradient(to right, rgba(0,212,255,.05), transparent 60%);
-    margin-bottom: 48px;
+    margin-bottom: 64px;
     font-size: 13px;
     letter-spacing: .14em;
     text-transform: uppercase;
@@ -328,12 +413,13 @@
 
   .bout {
     display: grid;
-    grid-template-columns: 80px 1fr auto 1fr 80px;
+    grid-template-columns: 60px 1fr 1fr auto;
     align-items: center;
-    gap: 24px;
+    gap: 28px;
     padding: 40px 8px;
     border-top: 1px solid var(--gray-line);
     position: relative;
+    transition: background .35s var(--ease);
   }
   .bouts .bout:last-child { border-bottom: 1px solid var(--gray-line); }
   .bout::after {
@@ -344,6 +430,7 @@
     background: var(--blue);
     transition: width .6s var(--ease);
   }
+  .bout:hover { background: linear-gradient(to right, rgba(0,212,255,.04), transparent); }
   .bout:hover::after { width: 100%; }
 
   .bout__num {
@@ -353,27 +440,61 @@
     line-height: 1;
     color: var(--gray-soft);
     letter-spacing: -.04em;
+    transition: color .3s var(--ease);
   }
-  .bout:hover .bout__num { color: var(--blue); transition: color .3s var(--ease); }
+  .bout:hover .bout__num { color: var(--blue); }
 
-  .bout__fighter {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
+  .bout__pair {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 20px;
+    grid-column: 2 / 4;
   }
-  .bout__fighter--right { text-align: right; align-items: flex-end; }
-  .bout__fighter h3 {
-    margin: 0;
+
+  .bout__corner {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+  .bout__corner--right { flex-direction: row-reverse; text-align: right; }
+
+  .bout__avatar {
+    flex: 0 0 84px;
+    width: 84px; height: 84px;
+    background-size: cover;
+    background-position: 50% 28%;
+    position: relative;
+    overflow: hidden;
+    filter: grayscale(100%) contrast(1.1) brightness(.85);
+    transition: filter .3s var(--ease), transform .35s var(--ease);
+    border: 1px solid var(--gray-soft);
+  }
+  .bout__avatar::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,212,255,.25), transparent 60%);
+    opacity: 0;
+    transition: opacity .35s var(--ease);
+  }
+  .bout:hover .bout__avatar {
+    filter: grayscale(0%) contrast(1.05);
+    transform: scale(1.04);
+  }
+  .bout:hover .bout__avatar::after { opacity: 1; }
+
+  .bout__name {
     font-family: 'Inter', sans-serif;
     font-weight: 900;
-    font-size: clamp(22px, 2.6vw, 34px);
+    font-size: clamp(20px, 2.3vw, 30px);
     letter-spacing: -.01em;
     line-height: 1;
+    margin: 0 0 6px;
   }
-  .bout__fighter p {
+  .bout__tag {
     margin: 0;
-    font-size: 12px;
-    letter-spacing: .2em;
+    font-size: 11px;
+    letter-spacing: .22em;
     text-transform: uppercase;
     color: rgba(255,255,255,.55);
   }
@@ -381,12 +502,13 @@
   .bout__vs {
     font-family: 'Inter', sans-serif;
     font-weight: 900;
-    font-size: 28px;
+    font-size: 22px;
     color: var(--blue);
     letter-spacing: .04em;
-    padding: 8px 16px;
+    padding: 8px 14px;
     border: 1px solid var(--blue);
     background: rgba(0,212,255,.08);
+    line-height: 1;
   }
 
   .bout__class {
@@ -396,48 +518,77 @@
     color: rgba(255,255,255,.6);
     text-transform: uppercase;
     line-height: 1.4;
+    min-width: 140px;
   }
   .bout__class strong {
     display: block;
     color: var(--white);
     font-weight: 700;
     margin-top: 4px;
+    font-size: 13px;
   }
 
   /* ===== CHAMPIONS ===== */
-  .champions { background: #050505; }
+  .champions { background: #050505; overflow: hidden; }
+  .champions::before {
+    content: "";
+    position: absolute; right: -10%; top: 10%;
+    width: 60%; height: 80%;
+    background: radial-gradient(circle, rgba(0,212,255,.12), transparent 60%);
+    filter: blur(60px);
+    pointer-events: none;
+  }
   .champ-grid {
     display: grid;
-    grid-template-columns: minmax(280px, 420px) 1fr;
+    grid-template-columns: minmax(280px, 460px) 1fr;
     gap: 80px;
     align-items: center;
+    position: relative;
   }
 
   .portrait {
     position: relative;
     aspect-ratio: 4/5;
-    background:
-      linear-gradient(135deg, #1a1a1a, #0a0a0a);
-    border: 1px solid var(--gray-soft);
     overflow: hidden;
+    background: #000;
+    /* clip-path animation start state */
+    clip-path: inset(0 100% 0 0);
   }
+  .portrait img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: 50% 25%;
+    filter: grayscale(100%) contrast(1.1) brightness(.95);
+    transition: transform 1.2s var(--ease);
+  }
+  .portrait:hover img { transform: scale(1.04); }
   .portrait::before {
     content: "";
     position: absolute; inset: 0;
     background:
-      radial-gradient(ellipse 80% 60% at 50% 110%, rgba(0,212,255,.25), transparent 70%);
+      linear-gradient(to top, rgba(0,0,0,.85) 0%, rgba(0,0,0,.2) 35%, transparent 60%),
+      linear-gradient(to right, rgba(0,212,255,.08), transparent 40%);
+    z-index: 1;
+    pointer-events: none;
   }
-  /* SVG silhouette */
-  .portrait__silhouette {
-    position: absolute;
-    inset: 0;
-    width: 100%; height: 100%;
-    color: #2a2a2a;
+  .portrait::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(0,0,0,.18) 0,
+      rgba(0,0,0,.18) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+    mix-blend-mode: multiply;
+    z-index: 2;
+    pointer-events: none;
   }
   .portrait__corner {
-    position: absolute;
-    width: 24px; height: 24px;
+    position: absolute; width: 26px; height: 26px;
     border: 1px solid var(--blue);
+    z-index: 3;
   }
   .portrait__corner.tl { top: 16px; left: 16px; border-right: 0; border-bottom: 0; }
   .portrait__corner.tr { top: 16px; right: 16px; border-left: 0; border-bottom: 0; }
@@ -446,6 +597,7 @@
   .portrait__badge {
     position: absolute;
     bottom: 24px; left: 24px;
+    z-index: 4;
     background: var(--blue);
     color: var(--black);
     font-family: 'Inter', sans-serif;
@@ -454,16 +606,27 @@
     letter-spacing: .22em;
     padding: 8px 12px;
   }
+  .portrait__name {
+    position: absolute;
+    bottom: 24px; right: 24px;
+    z-index: 4;
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    font-size: 10px;
+    letter-spacing: .28em;
+    color: rgba(255,255,255,.7);
+    text-transform: uppercase;
+  }
 
   .champ-bio h3 {
     font-family: 'Inter', sans-serif;
     font-weight: 900;
-    font-size: clamp(30px, 4vw, 56px);
+    font-size: clamp(30px, 4.2vw, 58px);
     line-height: 1;
     letter-spacing: -.02em;
-    margin: 0 0 8px;
+    margin: 0 0 10px;
   }
-  .champ-bio .champ-bio__role {
+  .champ-bio__role {
     color: var(--blue);
     font-size: 13px;
     letter-spacing: .24em;
@@ -472,7 +635,7 @@
     margin: 0 0 28px;
   }
   .champ-bio p {
-    color: rgba(255,255,255,.78);
+    color: rgba(255,255,255,.8);
     font-size: 17px;
     line-height: 1.7;
     margin: 0 0 18px;
@@ -489,10 +652,11 @@
   .champ-stat__num {
     font-family: 'Inter', sans-serif;
     font-weight: 900;
-    font-size: clamp(28px, 3vw, 40px);
+    font-size: clamp(28px, 3.2vw, 44px);
     color: var(--blue);
     line-height: 1;
   }
+  .champ-stat__num .suffix { color: var(--blue); }
   .champ-stat__label {
     font-size: 11px;
     letter-spacing: .22em;
@@ -500,6 +664,64 @@
     color: rgba(255,255,255,.6);
     margin-top: 8px;
     display: block;
+  }
+
+  /* ===== REEL — full-width photo strip with parallax ===== */
+  .reel {
+    position: relative;
+    height: 60vh;
+    min-height: 420px;
+    overflow: hidden;
+    background: #000;
+  }
+  .reel__bg {
+    position: absolute; inset: 0;
+    background-image: url('https://images.pexels.com/photos/31403621/pexels-photo-31403621.jpeg?auto=compress&cs=tinysrgb&w=1920');
+    background-size: cover;
+    background-position: 50% 45%;
+    filter: grayscale(100%) contrast(1.15) brightness(.55);
+    transform: translateY(0);
+    will-change: transform;
+  }
+  .reel__veil {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(to right, rgba(0,0,0,.85), rgba(0,0,0,.25) 50%, rgba(0,0,0,.85)),
+      linear-gradient(to bottom, rgba(0,0,0,.7), rgba(0,0,0,.2) 50%, rgba(0,0,0,.7));
+  }
+  .reel__scan {
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(to bottom, rgba(255,255,255,.04) 0 1px, transparent 1px 4px);
+    mix-blend-mode: overlay;
+    pointer-events: none;
+  }
+  .reel__copy {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 24px;
+  }
+  .reel__copy h2 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    font-size: clamp(40px, 8vw, 120px);
+    line-height: .9;
+    letter-spacing: -.03em;
+    margin: 0;
+    text-shadow: 0 4px 40px rgba(0,0,0,.8);
+  }
+  .reel__copy h2 em { color: var(--blue); font-style: normal; }
+  .reel__copy p {
+    margin: 22px 0 0;
+    font-size: 13px;
+    letter-spacing: .35em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.7);
   }
 
   /* ===== SPONSORS ===== */
@@ -523,6 +745,15 @@
     font-size: 13px;
     text-align: center;
     padding: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .sponsor::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, transparent 40%, rgba(0,212,255,.1) 50%, transparent 60%);
+    transform: translateX(-100%);
+    transition: transform .6s var(--ease);
   }
   .sponsor:hover {
     border-color: var(--blue);
@@ -531,15 +762,16 @@
     transform: translateY(-3px);
     box-shadow: 0 0 30px rgba(0,212,255,.15);
   }
+  .sponsor:hover::before { transform: translateX(100%); }
 
   /* ===== CONTACT ===== */
   .contact { padding-bottom: 80px; }
   .contact-wrap {
     border: 1px solid var(--gray-line);
-    padding: 64px 48px;
+    padding: 72px 48px;
     text-align: center;
     background:
-      radial-gradient(ellipse 60% 100% at 50% 100%, rgba(0,212,255,.12), transparent 70%),
+      radial-gradient(ellipse 60% 100% at 50% 100%, rgba(0,212,255,.14), transparent 70%),
       #050505;
     position: relative;
     overflow: hidden;
@@ -547,8 +779,7 @@
   .contact-wrap::before {
     content: "";
     position: absolute; inset: 0;
-    background-image:
-      linear-gradient(to right, rgba(0,212,255,.05) 1px, transparent 1px);
+    background-image: linear-gradient(to right, rgba(0,212,255,.05) 1px, transparent 1px);
     background-size: 60px 60px;
     mask-image: linear-gradient(to bottom, transparent, black);
     -webkit-mask-image: linear-gradient(to bottom, transparent, black);
@@ -558,14 +789,14 @@
   .contact-wrap h3 {
     font-family: 'Inter', sans-serif;
     font-weight: 900;
-    font-size: clamp(28px, 4vw, 52px);
+    font-size: clamp(28px, 4.2vw, 56px);
     margin: 0 0 14px;
-    letter-spacing: -.01em;
+    letter-spacing: -.015em;
     line-height: 1.05;
   }
   .contact-wrap p {
-    color: rgba(255,255,255,.7);
-    max-width: 520px;
+    color: rgba(255,255,255,.75);
+    max-width: 540px;
     margin: 0 auto 36px;
     font-size: 16px;
   }
@@ -593,38 +824,49 @@
     letter-spacing: .14em;
     font-size: 13px;
   }
-  .footer__legal { max-width: 720px; margin-top: 20px; line-height: 1.6; font-size: 11px; }
+  .footer__legal { max-width: 740px; margin-top: 20px; line-height: 1.6; font-size: 11px; }
+  .footer__credit { margin-top: 8px; font-size: 10px; opacity: .55; letter-spacing: .15em; text-transform: uppercase; }
 
-  /* Reveal default state */
+  /* Reveal default states */
   .reveal { opacity: 0; transform: translateY(28px); }
   .reveal-left { opacity: 0; transform: translateX(-60px); }
   .reveal-right { opacity: 0; transform: translateX(60px); }
 
   /* ===== Responsive ===== */
+  @media (max-width: 980px) {
+    .bout {
+      grid-template-columns: 50px 1fr;
+      gap: 16px;
+    }
+    .bout__pair {
+      grid-column: 1 / -1;
+      grid-template-columns: 1fr auto 1fr;
+    }
+    .bout__class {
+      grid-column: 1 / -1;
+      text-align: left;
+      border-top: 1px dashed var(--gray-line);
+      padding-top: 14px;
+      min-width: 0;
+    }
+  }
   @media (max-width: 880px) {
     .champ-grid { grid-template-columns: 1fr; gap: 48px; }
-    .portrait { max-width: 360px; margin: 0 auto; }
+    .portrait { max-width: 380px; margin: 0 auto; }
     .sponsors-grid { grid-template-columns: repeat(2, 1fr); }
-    .bout {
-      grid-template-columns: 1fr;
-      gap: 14px;
-      text-align: center;
-      padding: 32px 0;
-    }
-    .bout__num { font-size: 36px; }
-    .bout__fighter, .bout__fighter--right { align-items: center; text-align: center; }
-    .bout__class { text-align: center; }
-    .bout__vs { justify-self: center; }
-    section { padding: 88px 0; }
+    .bout__avatar { width: 64px; height: 64px; flex-basis: 64px; }
+    section { padding: 96px 0; }
     .section__head { flex-direction: column; align-items: flex-start; }
     .section__meta { text-align: left; }
-    .contact-wrap { padding: 48px 20px; }
+    .contact-wrap { padding: 56px 22px; }
     .champ-stats { grid-template-columns: 1fr; gap: 16px; }
   }
-  @media (max-width: 480px) {
+  @media (max-width: 520px) {
     .nav { padding: 14px 18px; }
     .container { padding: 0 20px; }
-    .sponsors-grid { grid-template-columns: 1fr 1fr; }
+    .bout__pair { grid-template-columns: 1fr; gap: 18px; text-align: center; }
+    .bout__corner, .bout__corner--right { flex-direction: column; text-align: center; gap: 10px; }
+    .bout__vs { justify-self: center; margin: 0 auto; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -635,6 +877,7 @@
     }
     .reveal, .reveal-left, .reveal-right { opacity: 1 !important; transform: none !important; }
     .hero__eyebrow, .hero__logo, .hero__sub, .hero__tagline, .hero__cta { opacity: 1 !important; }
+    .portrait { clip-path: none !important; }
   }
 </style>
 </head>
@@ -649,6 +892,13 @@
 </nav>
 
 <header class="hero" id="hero">
+  <div class="hero__bg" aria-hidden="true"></div>
+  <div class="hero__veil" aria-hidden="true"></div>
+  <div class="hero__grid" aria-hidden="true"></div>
+  <div class="hero__dots" aria-hidden="true"></div>
+  <div class="hero__glow" aria-hidden="true"></div>
+  <div class="hero__scan" aria-hidden="true"></div>
+
   <div class="hero__inner">
     <div class="hero__eyebrow" data-i18n="hero.eyebrow">PANAMÁ · BOXEO PREMIUM</div>
     <h1 class="hero__logo">
@@ -658,8 +908,41 @@
     <p class="hero__tagline" data-i18n="hero.tagline">El Futuro del Boxeo Panameño</p>
     <a href="#velada" class="btn hero__cta" data-i18n="hero.cta">VER PRÓXIMA VELADA</a>
   </div>
-  <div class="hero__scroll" data-i18n="hero.scroll">SCROLL</div>
+
+  <div class="hero__strip" aria-hidden="true">
+    <div><strong>EST. 2026</strong><span data-i18n="strip.found">FUNDACIÓN</span></div>
+    <div><strong>PTY</strong><span data-i18n="strip.city">CIUDAD DE PANAMÁ</span></div>
+    <div><strong>WBA</strong><span data-i18n="strip.legacy">LEGADO MUNDIAL</span></div>
+    <div><strong>03</strong><span data-i18n="strip.fights">PRÓXIMAS PELEAS</span></div>
+  </div>
 </header>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker__track">
+    <span class="ticker__item">NOCHE ELÉCTRICA</span>
+    <span class="ticker__dot"></span>
+    <span class="ticker__item ticker__item--blue">PRÓXIMA VELADA</span>
+    <span class="ticker__dot"></span>
+    <span class="ticker__item">PANAMA CITY</span>
+    <span class="ticker__dot"></span>
+    <span class="ticker__item ticker__item--blue">EL FUTURO DEL BOXEO</span>
+    <span class="ticker__dot"></span>
+    <span class="ticker__item">LAGUNA PREMIUM</span>
+    <span class="ticker__dot"></span>
+    <!-- duplicate for seamless loop -->
+    <span class="ticker__item">NOCHE ELÉCTRICA</span>
+    <span class="ticker__dot"></span>
+    <span class="ticker__item ticker__item--blue">PRÓXIMA VELADA</span>
+    <span class="ticker__dot"></span>
+    <span class="ticker__item">PANAMA CITY</span>
+    <span class="ticker__dot"></span>
+    <span class="ticker__item ticker__item--blue">EL FUTURO DEL BOXEO</span>
+    <span class="ticker__dot"></span>
+    <span class="ticker__item">LAGUNA PREMIUM</span>
+    <span class="ticker__dot"></span>
+  </div>
+</div>
 
 <section class="velada" id="velada">
   <div class="container">
@@ -678,16 +961,25 @@
     </div>
 
     <div class="bouts">
+
       <article class="bout reveal-left">
         <div class="bout__num">01</div>
-        <div class="bout__fighter">
-          <h3>TBA</h3>
-          <p data-i18n="bout.cornerRed">ESQUINA ROJA</p>
-        </div>
-        <div class="bout__vs">VS</div>
-        <div class="bout__fighter bout__fighter--right">
-          <h3>TBA</h3>
-          <p data-i18n="bout.cornerBlue">ESQUINA AZUL</p>
+        <div class="bout__pair">
+          <div class="bout__corner">
+            <span class="bout__avatar" style="background-image:url('https://images.pexels.com/photos/8745178/pexels-photo-8745178.jpeg?auto=compress&cs=tinysrgb&w=400');"></span>
+            <div>
+              <h3 class="bout__name">TBA</h3>
+              <p class="bout__tag" data-i18n="bout.cornerRed">ESQUINA ROJA</p>
+            </div>
+          </div>
+          <div class="bout__vs">VS</div>
+          <div class="bout__corner bout__corner--right">
+            <span class="bout__avatar" style="background-image:url('https://images.pexels.com/photos/6699106/pexels-photo-6699106.jpeg?auto=compress&cs=tinysrgb&w=400');"></span>
+            <div>
+              <h3 class="bout__name">TBA</h3>
+              <p class="bout__tag" data-i18n="bout.cornerBlue">ESQUINA AZUL</p>
+            </div>
+          </div>
         </div>
         <div class="bout__class">
           <span data-i18n="bout.openingLabel">APERTURA</span>
@@ -697,14 +989,22 @@
 
       <article class="bout reveal-left">
         <div class="bout__num">02</div>
-        <div class="bout__fighter">
-          <h3>TBA</h3>
-          <p data-i18n="bout.cornerRed">ESQUINA ROJA</p>
-        </div>
-        <div class="bout__vs">VS</div>
-        <div class="bout__fighter bout__fighter--right">
-          <h3>TBA</h3>
-          <p data-i18n="bout.cornerBlue">ESQUINA AZUL</p>
+        <div class="bout__pair">
+          <div class="bout__corner">
+            <span class="bout__avatar" style="background-image:url('https://images.pexels.com/photos/6740342/pexels-photo-6740342.jpeg?auto=compress&cs=tinysrgb&w=400');"></span>
+            <div>
+              <h3 class="bout__name">TBA</h3>
+              <p class="bout__tag" data-i18n="bout.cornerRed">ESQUINA ROJA</p>
+            </div>
+          </div>
+          <div class="bout__vs">VS</div>
+          <div class="bout__corner bout__corner--right">
+            <span class="bout__avatar" style="background-image:url('https://images.pexels.com/photos/6456308/pexels-photo-6456308.jpeg?auto=compress&cs=tinysrgb&w=400');"></span>
+            <div>
+              <h3 class="bout__name">TBA</h3>
+              <p class="bout__tag" data-i18n="bout.cornerBlue">ESQUINA AZUL</p>
+            </div>
+          </div>
         </div>
         <div class="bout__class">
           <span data-i18n="bout.coLabel">CO-ESTELAR</span>
@@ -714,21 +1014,41 @@
 
       <article class="bout reveal-left">
         <div class="bout__num">03</div>
-        <div class="bout__fighter">
-          <h3>TBA</h3>
-          <p data-i18n="bout.cornerRed">ESQUINA ROJA</p>
-        </div>
-        <div class="bout__vs">VS</div>
-        <div class="bout__fighter bout__fighter--right">
-          <h3>TBA</h3>
-          <p data-i18n="bout.cornerBlue">ESQUINA AZUL</p>
+        <div class="bout__pair">
+          <div class="bout__corner">
+            <span class="bout__avatar" style="background-image:url('https://images.pexels.com/photos/31485125/pexels-photo-31485125.jpeg?auto=compress&cs=tinysrgb&w=400');"></span>
+            <div>
+              <h3 class="bout__name">TBA</h3>
+              <p class="bout__tag" data-i18n="bout.cornerRed">ESQUINA ROJA</p>
+            </div>
+          </div>
+          <div class="bout__vs">VS</div>
+          <div class="bout__corner bout__corner--right">
+            <span class="bout__avatar" style="background-image:url('https://images.pexels.com/photos/5424583/pexels-photo-5424583.jpeg?auto=compress&cs=tinysrgb&w=400');"></span>
+            <div>
+              <h3 class="bout__name">TBA</h3>
+              <p class="bout__tag" data-i18n="bout.cornerBlue">ESQUINA AZUL</p>
+            </div>
+          </div>
         </div>
         <div class="bout__class">
           <span data-i18n="bout.mainLabel">ESTELAR</span>
           <strong data-i18n="bout.weightLight">PESO LIGERO</strong>
         </div>
       </article>
+
     </div>
+  </div>
+</section>
+
+<!-- REEL — full-width parallax band -->
+<section class="reel" aria-hidden="false">
+  <div class="reel__bg" id="reelBg"></div>
+  <div class="reel__veil"></div>
+  <div class="reel__scan"></div>
+  <div class="reel__copy">
+    <h2><span data-i18n="reel.lineA">CADA RING.</span> <em data-i18n="reel.lineB">CADA ROUND.</em></h2>
+    <p data-i18n="reel.tag">PRESENTADO POR LAGUNA PREMIUM</p>
   </div>
 </section>
 
@@ -742,39 +1062,33 @@
     </div>
 
     <div class="champ-grid">
-      <div class="portrait reveal-left" aria-hidden="true">
-        <svg class="portrait__silhouette" viewBox="0 0 200 250" preserveAspectRatio="xMidYMax meet">
-          <!-- Stylized boxer silhouette -->
-          <circle cx="100" cy="60" r="28" fill="currentColor"/>
-          <path d="M70 95 Q55 105 50 130 L50 175 Q50 200 60 225 L80 250 L120 250 L140 225 Q150 200 150 175 L150 130 Q145 105 130 95 Q120 88 100 88 Q80 88 70 95 Z" fill="currentColor"/>
-          <!-- Gloves -->
-          <circle cx="42" cy="155" r="16" fill="#00d4ff" opacity=".55"/>
-          <circle cx="158" cy="155" r="16" fill="#00d4ff" opacity=".55"/>
-        </svg>
+      <div class="portrait" id="champPortrait">
+        <img src="https://images.pexels.com/photos/6699106/pexels-photo-6699106.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Boxer portrait (stock placeholder)" loading="lazy" />
         <span class="portrait__corner tl"></span>
         <span class="portrait__corner tr"></span>
         <span class="portrait__corner bl"></span>
         <span class="portrait__corner br"></span>
         <div class="portrait__badge">WBA · WORLD</div>
+        <div class="portrait__name" data-i18n="champ.tag">DEMO · IMAGEN DE ARCHIVO</div>
       </div>
 
       <div class="champ-bio reveal-right">
         <h3>Anselmo "Chemito" Moreno</h3>
         <p class="champ-bio__role" data-i18n="champ.role">EX CAMPEÓN MUNDIAL WBA · FUNDADOR</p>
         <p data-i18n="champ.bio1">Anselmo "Chemito" Moreno es uno de los boxeadores más técnicos y respetados de la historia de Panamá. Defendió el título mundial gallo de la AMB en más de diez ocasiones y dejó una huella imborrable en el deporte.</p>
-        <p data-i18n="champ.bio2">Hoy, desde Laguna Premium Boxing Promotions, abre el camino para la próxima generación de campeones panameños — con cardelas premium, formación profesional y una visión internacional del boxeo.</p>
+        <p data-i18n="champ.bio2">Hoy, desde Laguna Premium Boxing Promotions, abre el camino para la próxima generación de campeones panameños — con carteleras premium, formación profesional y una visión internacional del boxeo.</p>
 
         <div class="champ-stats">
           <div>
-            <div class="champ-stat__num">10+</div>
+            <div class="champ-stat__num"><span class="count" data-target="12">0</span><span class="suffix">+</span></div>
             <span class="champ-stat__label" data-i18n="champ.statDefenses">DEFENSAS DEL TÍTULO</span>
           </div>
           <div>
-            <div class="champ-stat__num">36</div>
+            <div class="champ-stat__num"><span class="count" data-target="36">0</span></div>
             <span class="champ-stat__label" data-i18n="champ.statWins">VICTORIAS PROFESIONALES</span>
           </div>
           <div>
-            <div class="champ-stat__num">2008</div>
+            <div class="champ-stat__num"><span class="count" data-target="2008">0</span></div>
             <span class="champ-stat__label" data-i18n="champ.statCrowned">CORONADO CAMPEÓN MUNDIAL</span>
           </div>
         </div>
@@ -829,6 +1143,7 @@
       <p data-i18n="footer.langhint">ES | EN — Cambia el idioma arriba a la derecha</p>
     </div>
     <p class="footer__legal" data-i18n="footer.legal">© 2026 Laguna Premium Boxing Promotions. Aviso de Privacidad — Ley 81 de Protección de Datos Personales de la República de Panamá: tratamos tus datos únicamente para los fines aquí descritos y nunca los compartimos sin tu consentimiento.</p>
+    <p class="footer__credit" data-i18n="footer.credit">DEMO · IMÁGENES DE ARCHIVO POR PEXELS · NO REPRESENTAN ATLETAS REALES</p>
   </div>
 </footer>
 
@@ -843,7 +1158,11 @@ const dict = {
     "hero.eyebrow": "PANAMÁ · BOXEO PREMIUM",
     "hero.tagline": "El Futuro del Boxeo Panameño",
     "hero.cta": "VER PRÓXIMA VELADA",
-    "hero.scroll": "SCROLL",
+
+    "strip.found": "FUNDACIÓN",
+    "strip.city": "CIUDAD DE PANAMÁ",
+    "strip.legacy": "LEGADO MUNDIAL",
+    "strip.fights": "PRÓXIMAS PELEAS",
 
     "velada.kicker": "PRÓXIMA VELADA",
     "velada.titleA": "NOCHE",
@@ -862,6 +1181,10 @@ const dict = {
     "bout.weightFeather": "PESO PLUMA",
     "bout.weightLight": "PESO LIGERO",
 
+    "reel.lineA": "CADA RING.",
+    "reel.lineB": "CADA ROUND.",
+    "reel.tag": "PRESENTADO POR LAGUNA PREMIUM",
+
     "champ.kicker": "CAMPEONES",
     "champ.titleA": "EL LEGADO",
     "champ.titleB": "CHEMITO",
@@ -871,6 +1194,7 @@ const dict = {
     "champ.statDefenses": "DEFENSAS DEL TÍTULO",
     "champ.statWins": "VICTORIAS PROFESIONALES",
     "champ.statCrowned": "CORONADO CAMPEÓN MUNDIAL",
+    "champ.tag": "DEMO · IMAGEN DE ARCHIVO",
 
     "sponsors.kicker": "SPONSORS",
     "sponsors.titleA": "NUESTROS",
@@ -890,13 +1214,18 @@ const dict = {
     "contact.email": "EMAIL",
 
     "footer.langhint": "ES | EN — Cambia el idioma arriba a la derecha",
-    "footer.legal": "© 2026 Laguna Premium Boxing Promotions. Aviso de Privacidad — Ley 81 de Protección de Datos Personales de la República de Panamá: tratamos tus datos únicamente para los fines aquí descritos y nunca los compartimos sin tu consentimiento."
+    "footer.legal": "© 2026 Laguna Premium Boxing Promotions. Aviso de Privacidad — Ley 81 de Protección de Datos Personales de la República de Panamá: tratamos tus datos únicamente para los fines aquí descritos y nunca los compartimos sin tu consentimiento.",
+    "footer.credit": "DEMO · IMÁGENES DE ARCHIVO POR PEXELS · NO REPRESENTAN ATLETAS REALES"
   },
   en: {
     "hero.eyebrow": "PANAMA · PREMIUM BOXING",
     "hero.tagline": "The Future of Panamanian Boxing",
     "hero.cta": "SEE THE NEXT FIGHT CARD",
-    "hero.scroll": "SCROLL",
+
+    "strip.found": "FOUNDED",
+    "strip.city": "PANAMA CITY",
+    "strip.legacy": "WORLD LEGACY",
+    "strip.fights": "UPCOMING BOUTS",
 
     "velada.kicker": "NEXT FIGHT NIGHT",
     "velada.titleA": "ELECTRIC",
@@ -915,6 +1244,10 @@ const dict = {
     "bout.weightFeather": "FEATHERWEIGHT",
     "bout.weightLight": "LIGHTWEIGHT",
 
+    "reel.lineA": "EVERY RING.",
+    "reel.lineB": "EVERY ROUND.",
+    "reel.tag": "PRESENTED BY LAGUNA PREMIUM",
+
     "champ.kicker": "CHAMPIONS",
     "champ.titleA": "THE",
     "champ.titleB": "CHEMITO LEGACY",
@@ -924,6 +1257,7 @@ const dict = {
     "champ.statDefenses": "TITLE DEFENSES",
     "champ.statWins": "PRO WINS",
     "champ.statCrowned": "CROWNED WORLD CHAMPION",
+    "champ.tag": "DEMO · STOCK IMAGE",
 
     "sponsors.kicker": "SPONSORS",
     "sponsors.titleA": "OUR",
@@ -943,7 +1277,8 @@ const dict = {
     "contact.email": "EMAIL",
 
     "footer.langhint": "ES | EN — Switch language in the top right",
-    "footer.legal": "© 2026 Laguna Premium Boxing Promotions. Privacy Notice — Panama Personal Data Protection Law 81: we only process your personal data for the purposes described here and never share it without your consent."
+    "footer.legal": "© 2026 Laguna Premium Boxing Promotions. Privacy Notice — Panama Personal Data Protection Law 81: we only process your personal data for the purposes described here and never share it without your consent.",
+    "footer.credit": "DEMO · STOCK IMAGERY VIA PEXELS · NOT REPRESENTATIVE OF REAL ATHLETES"
   }
 };
 
@@ -960,12 +1295,8 @@ function applyLang(lang) {
   });
   try { localStorage.setItem('laguna.lang', lang); } catch(e) {}
 }
+langButtons.forEach(b => b.addEventListener('click', () => applyLang(b.dataset.lang)));
 
-langButtons.forEach(b => {
-  b.addEventListener('click', () => applyLang(b.dataset.lang));
-});
-
-// Pick initial lang: ?lang= → localStorage → browser → es
 (function initLang() {
   const params = new URLSearchParams(window.location.search);
   const fromQuery = params.get('lang');
@@ -973,8 +1304,7 @@ langButtons.forEach(b => {
                  : /^\/es\b/.test(window.location.pathname) ? 'es' : null;
   let stored = null;
   try { stored = localStorage.getItem('laguna.lang'); } catch(e) {}
-  const fromBrowser = (navigator.language || 'es').toLowerCase().startsWith('en') ? 'en' : 'es';
-  const lang = fromQuery || fromPath || stored || 'es' || fromBrowser;
+  const lang = fromQuery || fromPath || stored || 'es';
   applyLang(lang);
 })();
 
@@ -1002,22 +1332,54 @@ window.addEventListener('load', () => {
   gsap.utils.toArray('.reveal').forEach(el => {
     gsap.to(el, {
       opacity: 1, y: 0, duration: .9, ease: 'power3.out',
-      scrollTrigger: { trigger: el, start: 'top 85%' }
+      scrollTrigger: { trigger: el, start: 'top 86%' }
     });
   });
-
   gsap.utils.toArray('.reveal-left').forEach((el, i) => {
     gsap.to(el, {
       opacity: 1, x: 0, duration: 1, ease: 'power3.out',
-      delay: i * 0.08,
+      delay: i * 0.05,
       scrollTrigger: { trigger: el, start: 'top 88%' }
     });
   });
-
   gsap.utils.toArray('.reveal-right').forEach(el => {
     gsap.to(el, {
       opacity: 1, x: 0, duration: 1, ease: 'power3.out',
-      scrollTrigger: { trigger: el, start: 'top 85%' }
+      scrollTrigger: { trigger: el, start: 'top 86%' }
+    });
+  });
+
+  // Champion portrait clip-path reveal
+  gsap.to('#champPortrait', {
+    clipPath: 'inset(0 0% 0 0)',
+    duration: 1.4,
+    ease: 'power4.out',
+    scrollTrigger: { trigger: '#champPortrait', start: 'top 80%' }
+  });
+
+  // Reel parallax
+  gsap.to('#reelBg', {
+    yPercent: -18,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '.reel',
+      start: 'top bottom',
+      end: 'bottom top',
+      scrub: true
+    }
+  });
+
+  // Stat number counters
+  gsap.utils.toArray('.count').forEach(el => {
+    const target = +el.dataset.target;
+    const isYear = target > 1000;
+    const obj = { val: 0 };
+    gsap.to(obj, {
+      val: target,
+      duration: isYear ? 1.4 : 1.6,
+      ease: 'power2.out',
+      scrollTrigger: { trigger: el, start: 'top 90%', once: true },
+      onUpdate: () => { el.textContent = Math.round(obj.val).toString(); }
     });
   });
 });
