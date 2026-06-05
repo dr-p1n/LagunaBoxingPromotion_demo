@@ -675,6 +675,149 @@
     display: block;
   }
 
+  /* ===== CIRCUIT (National Circuit) ===== */
+  .circuit { background: #050505; overflow: hidden; }
+  .circuit::before {
+    content: "";
+    position: absolute;
+    right: -15%; top: -10%;
+    width: 60%; height: 80%;
+    background: radial-gradient(circle, rgba(0,212,255,.09), transparent 60%);
+    filter: blur(80px);
+    pointer-events: none;
+  }
+  .circuit__top {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 80px;
+    align-items: end;
+    margin-bottom: 80px;
+    position: relative;
+  }
+  .circuit__intro p {
+    margin: 0 0 18px;
+    color: rgba(255,255,255,.78);
+    font-size: 17px;
+    line-height: 1.7;
+    max-width: 56ch;
+  }
+  .circuit__stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px;
+    align-self: end;
+  }
+  .circuit__stat {
+    border-left: 2px solid var(--blue);
+    padding: 6px 0 6px 18px;
+  }
+  .circuit__stat-num {
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    font-size: clamp(38px, 4.5vw, 64px);
+    line-height: 1;
+    letter-spacing: -.03em;
+    color: var(--white);
+  }
+  .circuit__stat-label {
+    margin-top: 10px;
+    font-size: 11px;
+    letter-spacing: .22em;
+    color: rgba(255,255,255,.6);
+    text-transform: uppercase;
+    line-height: 1.4;
+  }
+
+  .circuit__phases-head {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 28px;
+    font-size: 11px;
+    letter-spacing: .35em;
+    color: var(--blue);
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .circuit__phases-head::before, .circuit__phases-head::after {
+    content: ""; height: 1px; background: rgba(0,212,255,.4); flex: 1;
+  }
+
+  .circuit__phases {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    position: relative;
+  }
+  .phase {
+    position: relative;
+    padding: 30px 28px;
+    background: #080808;
+    border: 1px solid var(--gray-line);
+    transition: border-color .3s var(--ease), transform .35s var(--ease), background .3s var(--ease);
+    overflow: hidden;
+  }
+  .phase::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--blue);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .5s var(--ease);
+  }
+  .phase:hover {
+    border-color: var(--blue);
+    transform: translateY(-3px);
+    background: #0a0a0a;
+  }
+  .phase:hover::before { transform: scaleX(1); }
+  .phase__num {
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    font-size: 11px;
+    letter-spacing: .3em;
+    color: var(--blue);
+    margin: 0 0 14px;
+  }
+  .phase__title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    font-size: clamp(20px, 2.2vw, 28px);
+    line-height: 1.05;
+    letter-spacing: -.01em;
+    margin: 0 0 12px;
+  }
+  .phase__desc {
+    margin: 0;
+    color: rgba(255,255,255,.6);
+    font-size: 14px;
+    line-height: 1.55;
+  }
+  .phase__meta {
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px dashed rgba(255,255,255,.1);
+    font-size: 10px;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.5);
+  }
+
+  /* Circuit responsive */
+  @media (max-width: 880px) {
+    .circuit__top { grid-template-columns: 1fr; gap: 36px; }
+    .circuit__stats { grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .circuit__phases { grid-template-columns: 1fr; gap: 14px; }
+    .circuit__stat { padding-left: 14px; }
+  }
+  @media (max-width: 520px) {
+    .circuit__stats { grid-template-columns: 1fr; gap: 14px; }
+    .circuit__intro p { font-size: 15px; }
+    .phase { padding: 24px 20px; }
+  }
+
   /* ===== REEL — full-width photo strip with parallax ===== */
   .reel {
     position: relative;
@@ -1231,6 +1374,62 @@
   </div>
 </section>
 
+<section class="circuit" id="circuito">
+  <div class="container">
+    <div class="section__head reveal">
+      <div>
+        <p class="section__kicker" data-i18n="circuit.kicker">INICIATIVA NACIONAL</p>
+        <h2 class="section__title"><span data-i18n="circuit.titleA">CIRCUITO</span> <em data-i18n="circuit.titleB">NACIONAL DE BOXEO</em></h2>
+      </div>
+      <div class="section__meta" data-i18n="circuit.meta">PROGRAMA ANUAL<br/>TEMPORADA 2026</div>
+    </div>
+
+    <div class="circuit__top">
+      <div class="circuit__intro reveal-left">
+        <p data-i18n="circuit.intro1">El Circuito Nacional de Boxeo es la iniciativa insignia de Laguna Premium — una temporada estructurada de veladas que conecta gimnasios, prospectos y provincias en un mismo escenario competitivo.</p>
+        <p data-i18n="circuit.intro2">Carteleras premium, oficiales certificados y un sistema escalonado que lleva al campeón nacional al ring de cierre en Ciudad de Panamá.</p>
+      </div>
+      <div class="circuit__stats reveal-right">
+        <div class="circuit__stat">
+          <div class="circuit__stat-num"><span class="count" data-target="12">0</span></div>
+          <div class="circuit__stat-label" data-i18n="circuit.statEvents">EVENTOS<br/>AL AÑO</div>
+        </div>
+        <div class="circuit__stat">
+          <div class="circuit__stat-num"><span class="count" data-target="6">0</span></div>
+          <div class="circuit__stat-label" data-i18n="circuit.statCities">CIUDADES<br/>SEDE</div>
+        </div>
+        <div class="circuit__stat">
+          <div class="circuit__stat-num"><span class="count" data-target="8">0</span></div>
+          <div class="circuit__stat-label" data-i18n="circuit.statClasses">CATEGORÍAS<br/>DE PESO</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="circuit__phases-head reveal" data-i18n="circuit.phasesHead">FASES DE LA TEMPORADA</div>
+
+    <div class="circuit__phases">
+      <article class="phase reveal">
+        <p class="phase__num">FASE 01</p>
+        <h3 class="phase__title" data-i18n="circuit.phase1Title">Eliminatorias Regionales</h3>
+        <p class="phase__desc" data-i18n="circuit.phase1Desc">Carteleras locales en provincias clave para identificar prospectos por categoría de peso.</p>
+        <div class="phase__meta" data-i18n="circuit.phase1Meta">Q1 · Q2 · 6 SEDES</div>
+      </article>
+      <article class="phase reveal">
+        <p class="phase__num">FASE 02</p>
+        <h3 class="phase__title" data-i18n="circuit.phase2Title">Semifinales Nacionales</h3>
+        <p class="phase__desc" data-i18n="circuit.phase2Desc">Cruces entre ganadores regionales, transmisión amplificada y cobertura de prensa Premium.</p>
+        <div class="phase__meta" data-i18n="circuit.phase2Meta">Q3 · 2 SEDES · TV</div>
+      </article>
+      <article class="phase reveal">
+        <p class="phase__num">FASE 03</p>
+        <h3 class="phase__title" data-i18n="circuit.phase3Title">Final "Noche Eléctrica"</h3>
+        <p class="phase__desc" data-i18n="circuit.phase3Desc">Velada de cierre en Ciudad de Panamá — coronación de campeones nacionales por categoría.</p>
+        <div class="phase__meta" data-i18n="circuit.phase3Meta">Q4 · PANAMA CITY · STREAM</div>
+      </article>
+    </div>
+  </div>
+</section>
+
 <!-- REEL — full-width parallax band -->
 <section class="reel" aria-hidden="false">
   <div class="reel__bg" id="reelBg"></div>
@@ -1435,6 +1634,26 @@ const dict = {
     "bout.weightFeather": "PESO PLUMA",
     "bout.weightLight": "PESO LIGERO",
 
+    "circuit.kicker": "INICIATIVA NACIONAL",
+    "circuit.titleA": "CIRCUITO",
+    "circuit.titleB": "NACIONAL DE BOXEO",
+    "circuit.meta": "PROGRAMA ANUAL<br/>TEMPORADA 2026",
+    "circuit.intro1": "El Circuito Nacional de Boxeo es la iniciativa insignia de Laguna Premium — una temporada estructurada de veladas que conecta gimnasios, prospectos y provincias en un mismo escenario competitivo.",
+    "circuit.intro2": "Carteleras premium, oficiales certificados y un sistema escalonado que lleva al campeón nacional al ring de cierre en Ciudad de Panamá.",
+    "circuit.statEvents": "EVENTOS<br/>AL AÑO",
+    "circuit.statCities": "CIUDADES<br/>SEDE",
+    "circuit.statClasses": "CATEGORÍAS<br/>DE PESO",
+    "circuit.phasesHead": "FASES DE LA TEMPORADA",
+    "circuit.phase1Title": "Eliminatorias Regionales",
+    "circuit.phase1Desc": "Carteleras locales en provincias clave para identificar prospectos por categoría de peso.",
+    "circuit.phase1Meta": "Q1 · Q2 · 6 SEDES",
+    "circuit.phase2Title": "Semifinales Nacionales",
+    "circuit.phase2Desc": "Cruces entre ganadores regionales, transmisión amplificada y cobertura de prensa Premium.",
+    "circuit.phase2Meta": "Q3 · 2 SEDES · TV",
+    "circuit.phase3Title": "Final \"Noche Eléctrica\"",
+    "circuit.phase3Desc": "Velada de cierre en Ciudad de Panamá — coronación de campeones nacionales por categoría.",
+    "circuit.phase3Meta": "Q4 · PANAMA CITY · STREAM",
+
     "reel.lineA": "CADA RING.",
     "reel.lineB": "CADA ROUND.",
     "reel.tag": "PRESENTADO POR LAGUNA PREMIUM",
@@ -1520,6 +1739,26 @@ const dict = {
     "bout.weightFly": "FLYWEIGHT",
     "bout.weightFeather": "FEATHERWEIGHT",
     "bout.weightLight": "LIGHTWEIGHT",
+
+    "circuit.kicker": "NATIONAL INITIATIVE",
+    "circuit.titleA": "NATIONAL",
+    "circuit.titleB": "BOXING CIRCUIT",
+    "circuit.meta": "ANNUAL PROGRAM<br/>2026 SEASON",
+    "circuit.intro1": "The National Boxing Circuit is Laguna Premium's flagship initiative — a structured season of fight nights that connects gyms, prospects, and provinces under a single competitive umbrella.",
+    "circuit.intro2": "Premium cards, certified officials, and a tiered system that brings the national champion to the closing ring in Panama City.",
+    "circuit.statEvents": "EVENTS<br/>PER YEAR",
+    "circuit.statCities": "HOST<br/>CITIES",
+    "circuit.statClasses": "WEIGHT<br/>CLASSES",
+    "circuit.phasesHead": "SEASON PHASES",
+    "circuit.phase1Title": "Regional Qualifiers",
+    "circuit.phase1Desc": "Local cards in key provinces to identify prospects across weight categories.",
+    "circuit.phase1Meta": "Q1 · Q2 · 6 VENUES",
+    "circuit.phase2Title": "National Semifinals",
+    "circuit.phase2Desc": "Regional winners clash, amplified broadcasts, and Premium press coverage.",
+    "circuit.phase2Meta": "Q3 · 2 VENUES · TV",
+    "circuit.phase3Title": "\"Noche Eléctrica\" Final",
+    "circuit.phase3Desc": "Closing fight night in Panama City — crowning national champions by weight class.",
+    "circuit.phase3Meta": "Q4 · PANAMA CITY · STREAM",
 
     "reel.lineA": "EVERY RING.",
     "reel.lineB": "EVERY ROUND.",
