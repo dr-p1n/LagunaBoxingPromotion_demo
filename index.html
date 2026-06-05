@@ -492,6 +492,14 @@
   }
   .bout:hover .bout__avatar::after { opacity: 1; }
 
+  .bout__corner-label {
+    margin: 0 0 8px;
+    font-size: 10px;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--blue);
+  }
   .bout__name {
     font-family: 'Inter', sans-serif;
     font-weight: 900;
@@ -503,7 +511,7 @@
   .bout__tag {
     margin: 0;
     font-size: 11px;
-    letter-spacing: .22em;
+    letter-spacing: .14em;
     text-transform: uppercase;
     color: rgba(255,255,255,.55);
   }
@@ -805,17 +813,79 @@
     color: rgba(255,255,255,.5);
   }
 
+  /* Vision pitch callout */
+  .circuit__vision {
+    margin-top: 28px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0,212,255,.3);
+    background:
+      linear-gradient(120deg, rgba(0,212,255,.08), transparent 55%),
+      #060606;
+    padding: 56px 52px;
+  }
+  .circuit__vision::before {
+    content: "";
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: var(--blue);
+    box-shadow: 0 0 28px rgba(0,212,255,.6);
+  }
+  .circuit__vision::after {
+    content: "";
+    position: absolute; right: -10%; top: -40%;
+    width: 50%; height: 180%;
+    background: radial-gradient(circle, rgba(0,212,255,.12), transparent 60%);
+    filter: blur(50px);
+    pointer-events: none;
+  }
+  .circuit__vision-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    letter-spacing: .4em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin: 0 0 22px;
+  }
+  .circuit__vision-label::before { content: ""; width: 30px; height: 1px; background: var(--blue); }
+  .circuit__vision h3 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    font-size: clamp(24px, 3.4vw, 46px);
+    line-height: 1.08;
+    letter-spacing: -.02em;
+    margin: 0 0 22px;
+    max-width: 22ch;
+    position: relative;
+  }
+  .circuit__vision h3 em { font-style: normal; color: var(--blue); }
+  .circuit__vision p {
+    margin: 0;
+    color: rgba(255,255,255,.78);
+    font-size: 17px;
+    line-height: 1.7;
+    max-width: 64ch;
+    position: relative;
+  }
+  .circuit__vision p + p { margin-top: 16px; }
+
   /* Circuit responsive */
   @media (max-width: 880px) {
     .circuit__top { grid-template-columns: 1fr; gap: 36px; }
     .circuit__stats { grid-template-columns: repeat(3, 1fr); gap: 18px; }
     .circuit__phases { grid-template-columns: 1fr; gap: 14px; }
     .circuit__stat { padding-left: 14px; }
+    .circuit__vision { padding: 44px 30px; }
   }
   @media (max-width: 520px) {
     .circuit__stats { grid-template-columns: 1fr; gap: 14px; }
     .circuit__intro p { font-size: 15px; }
     .phase { padding: 24px 20px; }
+    .circuit__vision { padding: 36px 22px; }
+    .circuit__vision p { font-size: 15px; }
   }
 
   /* ===== REEL — full-width photo strip with parallax ===== */
@@ -1006,8 +1076,15 @@
   /* ===== SPONSORS ===== */
   .sponsors-grid {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 20px;
+  }
+  .sponsors-note {
+    margin: 28px 0 0;
+    font-size: 11px;
+    letter-spacing: .12em;
+    color: rgba(255,255,255,.4);
+    text-transform: uppercase;
   }
   .sponsor {
     aspect-ratio: 16/9;
@@ -1217,8 +1294,8 @@
 <body>
 
 <nav class="nav" id="nav">
-  <div class="nav__brand">LAGUNA<span>.</span></div>
-  <div class="nav__lang" role="group" aria-label="Language">
+  <div class="nav__brand" translate="no">LAGUNA<span>.</span></div>
+  <div class="nav__lang" role="group" aria-label="Language" translate="no">
     <button type="button" data-lang="es" aria-pressed="true">ES</button>
     <button type="button" data-lang="en" aria-pressed="false">EN</button>
   </div>
@@ -1234,10 +1311,10 @@
 
   <div class="hero__inner">
     <div class="hero__eyebrow" data-i18n="hero.eyebrow">PANAMÁ · BOXEO PREMIUM</div>
-    <h1 class="hero__logo">
+    <h1 class="hero__logo" translate="no">
       <span class="pulse">LAGUNA</span> PREMIUM
     </h1>
-    <div class="hero__sub">BOXING PROMOTIONS</div>
+    <div class="hero__sub" translate="no">BOXING PROMOTIONS</div>
     <p class="hero__tagline" data-i18n="hero.tagline">El Futuro del Boxeo Panameño</p>
     <a href="#velada" class="btn hero__cta" data-i18n="hero.cta">VER PRÓXIMA VELADA</a>
   </div>
@@ -1251,7 +1328,7 @@
 </header>
 
 <!-- TICKER -->
-<div class="ticker" aria-hidden="true">
+<div class="ticker" aria-hidden="true" translate="no">
   <div class="ticker__track">
     <span class="ticker__item">NOCHE ELÉCTRICA</span>
     <span class="ticker__dot"></span>
@@ -1284,13 +1361,13 @@
         <p class="section__kicker" data-i18n="velada.kicker">PRÓXIMA VELADA</p>
         <h2 class="section__title"><span data-i18n="velada.titleA">NOCHE</span> <em data-i18n="velada.titleB">ELÉCTRICA</em></h2>
       </div>
-      <div class="section__meta" data-i18n="velada.meta">FECHA POR CONFIRMAR<br/>PANAMA CITY</div>
+      <div class="section__meta" data-i18n="velada.meta">SÁB · 20 DIC 2026<br/>CIUDAD DE PANAMÁ</div>
     </div>
 
     <div class="card-event reveal">
-      <span data-i18n="velada.eventLabel">CARTELERA OFICIAL</span>
+      <span data-i18n="velada.eventLabel">VELADA FIN DE AÑO</span>
       <span><strong>03</strong> <span data-i18n="velada.eventBouts">PELEAS</span></span>
-      <span data-i18n="velada.eventVenue">SEDE POR CONFIRMAR · PANAMA CITY</span>
+      <span data-i18n="velada.eventVenue">ARENA ROBERTO DURÁN · CIUDAD DE PANAMÁ</span>
     </div>
 
     <div class="bouts">
@@ -1301,16 +1378,18 @@
           <div class="bout__corner">
             <span class="bout__avatar" style="background-image:url('https://images.pexels.com/photos/8745178/pexels-photo-8745178.jpeg?auto=compress&cs=tinysrgb&w=400');"></span>
             <div>
-              <h3 class="bout__name">TBA</h3>
-              <p class="bout__tag" data-i18n="bout.cornerRed">ESQUINA ROJA</p>
+              <p class="bout__corner-label" data-i18n="bout.cornerRed">ESQUINA ROJA</p>
+              <h3 class="bout__name" translate="no">RELÁMPAGO</h3>
+              <p class="bout__tag" translate="no">Kevin Ortega · 12-0</p>
             </div>
           </div>
           <div class="bout__vs">VS</div>
           <div class="bout__corner bout__corner--right">
             <span class="bout__avatar" style="background-image:url('https://images.pexels.com/photos/6699106/pexels-photo-6699106.jpeg?auto=compress&cs=tinysrgb&w=400');"></span>
             <div>
-              <h3 class="bout__name">TBA</h3>
-              <p class="bout__tag" data-i18n="bout.cornerBlue">ESQUINA AZUL</p>
+              <p class="bout__corner-label" data-i18n="bout.cornerBlue">ESQUINA AZUL</p>
+              <h3 class="bout__name" translate="no">EL TIBURÓN</h3>
+              <p class="bout__tag" translate="no">José Batista · 10-1</p>
             </div>
           </div>
         </div>
@@ -1326,16 +1405,18 @@
           <div class="bout__corner">
             <span class="bout__avatar" style="background-image:url('https://images.pexels.com/photos/6740342/pexels-photo-6740342.jpeg?auto=compress&cs=tinysrgb&w=400');"></span>
             <div>
-              <h3 class="bout__name">TBA</h3>
-              <p class="bout__tag" data-i18n="bout.cornerRed">ESQUINA ROJA</p>
+              <p class="bout__corner-label" data-i18n="bout.cornerRed">ESQUINA ROJA</p>
+              <h3 class="bout__name" translate="no">DINAMITA</h3>
+              <p class="bout__tag" translate="no">Andrés Quintero · 15-1</p>
             </div>
           </div>
           <div class="bout__vs">VS</div>
           <div class="bout__corner bout__corner--right">
             <span class="bout__avatar" style="background-image:url('https://images.pexels.com/photos/6456308/pexels-photo-6456308.jpeg?auto=compress&cs=tinysrgb&w=400');"></span>
             <div>
-              <h3 class="bout__name">TBA</h3>
-              <p class="bout__tag" data-i18n="bout.cornerBlue">ESQUINA AZUL</p>
+              <p class="bout__corner-label" data-i18n="bout.cornerBlue">ESQUINA AZUL</p>
+              <h3 class="bout__name" translate="no">EL LOBO</h3>
+              <p class="bout__tag" translate="no">Carlos Núñez · 14-2</p>
             </div>
           </div>
         </div>
@@ -1351,16 +1432,18 @@
           <div class="bout__corner">
             <span class="bout__avatar" style="background-image:url('https://images.pexels.com/photos/31485125/pexels-photo-31485125.jpeg?auto=compress&cs=tinysrgb&w=400');"></span>
             <div>
-              <h3 class="bout__name">TBA</h3>
-              <p class="bout__tag" data-i18n="bout.cornerRed">ESQUINA ROJA</p>
+              <p class="bout__corner-label" data-i18n="bout.cornerRed">ESQUINA ROJA</p>
+              <h3 class="bout__name" translate="no">EL FENÓMENO</h3>
+              <p class="bout__tag" translate="no">Gabriel Herrera · 16-0</p>
             </div>
           </div>
           <div class="bout__vs">VS</div>
           <div class="bout__corner bout__corner--right">
             <span class="bout__avatar" style="background-image:url('https://images.pexels.com/photos/5424583/pexels-photo-5424583.jpeg?auto=compress&cs=tinysrgb&w=400');"></span>
             <div>
-              <h3 class="bout__name">TBA</h3>
-              <p class="bout__tag" data-i18n="bout.cornerBlue">ESQUINA AZUL</p>
+              <p class="bout__corner-label" data-i18n="bout.cornerBlue">ESQUINA AZUL</p>
+              <h3 class="bout__name" translate="no">LA PANTERA</h3>
+              <p class="bout__tag" translate="no">Diego Sáenz · 18-1</p>
             </div>
           </div>
         </div>
@@ -1427,6 +1510,13 @@
         <div class="phase__meta" data-i18n="circuit.phase3Meta">Q4 · PANAMA CITY · STREAM</div>
       </article>
     </div>
+
+    <div class="circuit__vision reveal">
+      <p class="circuit__vision-label" data-i18n="circuit.visionLabel">LA VISIÓN</p>
+      <h3 data-i18n="circuit.visionTitle"><span translate="no">Chemito</span> puede ser la <em>fábrica de desarrollo</em> del próximo campeón mundial panameño.</h3>
+      <p data-i18n="circuit.visionBody1">El Circuito Nacional convierte gimnasios dispersos en un solo sistema: detecta talento joven, lo forma con carteleras reales y lo proyecta a escala internacional. Una cantera, no un evento aislado.</p>
+      <p data-i18n="circuit.visionBody2">Y con el nombre de <span translate="no">Chemito</span> se abren acuerdos de medios, marcas y transmisión que ningún otro promotor del país puede conseguir. La oportunidad ya existe — solo falta la visión para ejecutarla.</p>
+    </div>
   </div>
 </section>
 
@@ -1446,7 +1536,7 @@
     <div class="section__head reveal">
       <div>
         <p class="section__kicker" data-i18n="champ.kicker">CAMPEONES</p>
-        <h2 class="section__title"><span data-i18n="champ.titleA">EL LEGADO</span> <em data-i18n="champ.titleB">CHEMITO</em></h2>
+        <h2 class="section__title"><span data-i18n="champ.titleA">EL LEGADO</span> <em data-i18n="champ.titleB" translate="no">CHEMITO</em></h2>
       </div>
     </div>
 
@@ -1462,7 +1552,7 @@
       </div>
 
       <div class="champ-bio reveal-right">
-        <h3>Anselmo "Chemito" Moreno</h3>
+        <h3 translate="no">Anselmo "Chemito" Moreno</h3>
         <p class="champ-bio__role" data-i18n="champ.role">EX CAMPEÓN MUNDIAL WBA · FUNDADOR</p>
         <p data-i18n="champ.bio1">Anselmo "Chemito" Moreno es uno de los boxeadores más técnicos y respetados de la historia de Panamá. Defendió el título mundial gallo de la AMB en más de diez ocasiones y dejó una huella imborrable en el deporte.</p>
         <p data-i18n="champ.bio2">Hoy, desde Laguna Premium Boxing Promotions, abre el camino para la próxima generación de campeones panameños — con carteleras premium, formación profesional y una visión internacional del boxeo.</p>
@@ -1557,15 +1647,18 @@
         <p class="section__kicker" data-i18n="sponsors.kicker">SPONSORS</p>
         <h2 class="section__title"><span data-i18n="sponsors.titleA">NUESTROS</span> <em data-i18n="sponsors.titleB">PATROCINADORES</em></h2>
       </div>
-      <div class="section__meta" data-i18n="sponsors.meta">ESPACIOS DISPONIBLES<br/>CONTACTO COMERCIAL</div>
+      <div class="section__meta" data-i18n="sponsors.meta">MARCAS ALIADAS<br/>EJEMPLOS DE DEMO</div>
     </div>
 
     <div class="sponsors-grid">
-      <div class="sponsor reveal" data-i18n="sponsors.slot1">SPONSOR 01</div>
-      <div class="sponsor reveal" data-i18n="sponsors.slot2">SPONSOR 02</div>
-      <div class="sponsor reveal" data-i18n="sponsors.slot3">SPONSOR 03</div>
-      <div class="sponsor reveal" data-i18n="sponsors.slot4">SPONSOR 04</div>
+      <div class="sponsor reveal" translate="no">EVERLAST</div>
+      <div class="sponsor reveal" translate="no">DEPORTES JIMMY</div>
+      <div class="sponsor reveal" translate="no">CASIO</div>
+      <div class="sponsor reveal" translate="no">MONSTER</div>
+      <div class="sponsor reveal" translate="no">CARTA VIEJA</div>
+      <div class="sponsor reveal" translate="no">CABLEONDA</div>
     </div>
+    <p class="sponsors-note" data-i18n="sponsors.note">Logos de demostración. Marcas mostradas con fines ilustrativos — sin afiliación ni acuerdo vigente.</p>
   </div>
 </section>
 
@@ -1620,10 +1713,10 @@ const dict = {
     "velada.kicker": "PRÓXIMA VELADA",
     "velada.titleA": "NOCHE",
     "velada.titleB": "ELÉCTRICA",
-    "velada.meta": "FECHA POR CONFIRMAR<br/>PANAMA CITY",
-    "velada.eventLabel": "CARTELERA OFICIAL",
+    "velada.meta": "SÁB · 20 DIC 2026<br/>CIUDAD DE PANAMÁ",
+    "velada.eventLabel": "VELADA FIN DE AÑO",
     "velada.eventBouts": "PELEAS",
-    "velada.eventVenue": "SEDE POR CONFIRMAR · PANAMA CITY",
+    "velada.eventVenue": "ARENA ROBERTO DURÁN · CIUDAD DE PANAMÁ",
 
     "bout.cornerRed": "ESQUINA ROJA",
     "bout.cornerBlue": "ESQUINA AZUL",
@@ -1653,6 +1746,10 @@ const dict = {
     "circuit.phase3Title": "Final \"Noche Eléctrica\"",
     "circuit.phase3Desc": "Velada de cierre en Ciudad de Panamá — coronación de campeones nacionales por categoría.",
     "circuit.phase3Meta": "Q4 · PANAMA CITY · STREAM",
+    "circuit.visionLabel": "LA VISIÓN",
+    "circuit.visionTitle": "<span translate=\"no\">Chemito</span> puede ser la <em>fábrica de desarrollo</em> del próximo campeón mundial panameño.",
+    "circuit.visionBody1": "El Circuito Nacional convierte gimnasios dispersos en un solo sistema: detecta talento joven, lo forma con carteleras reales y lo proyecta a escala internacional. Una cantera, no un evento aislado.",
+    "circuit.visionBody2": "Y con el nombre de <span translate=\"no\">Chemito</span> se abren acuerdos de medios, marcas y transmisión que ningún otro promotor del país puede conseguir. La oportunidad ya existe — solo falta la visión para ejecutarla.",
 
     "reel.lineA": "CADA RING.",
     "reel.lineB": "CADA ROUND.",
@@ -1695,11 +1792,8 @@ const dict = {
     "sponsors.kicker": "SPONSORS",
     "sponsors.titleA": "NUESTROS",
     "sponsors.titleB": "PATROCINADORES",
-    "sponsors.meta": "ESPACIOS DISPONIBLES<br/>CONTACTO COMERCIAL",
-    "sponsors.slot1": "SPONSOR 01",
-    "sponsors.slot2": "SPONSOR 02",
-    "sponsors.slot3": "SPONSOR 03",
-    "sponsors.slot4": "SPONSOR 04",
+    "sponsors.meta": "MARCAS ALIADAS<br/>EJEMPLOS DE DEMO",
+    "sponsors.note": "Logos de demostración. Marcas mostradas con fines ilustrativos — sin afiliación ni acuerdo vigente.",
 
     "contact.kicker": "CONTACTO",
     "contact.titleA": "SUBE",
@@ -1726,10 +1820,10 @@ const dict = {
     "velada.kicker": "NEXT FIGHT NIGHT",
     "velada.titleA": "ELECTRIC",
     "velada.titleB": "NIGHT",
-    "velada.meta": "DATE TO BE CONFIRMED<br/>PANAMA CITY",
-    "velada.eventLabel": "OFFICIAL CARD",
+    "velada.meta": "SAT · DEC 20 2026<br/>PANAMA CITY",
+    "velada.eventLabel": "YEAR-END FIGHT NIGHT",
     "velada.eventBouts": "BOUTS",
-    "velada.eventVenue": "VENUE TBC · PANAMA CITY",
+    "velada.eventVenue": "ROBERTO DURÁN ARENA · PANAMA CITY",
 
     "bout.cornerRed": "RED CORNER",
     "bout.cornerBlue": "BLUE CORNER",
@@ -1759,6 +1853,10 @@ const dict = {
     "circuit.phase3Title": "\"Noche Eléctrica\" Final",
     "circuit.phase3Desc": "Closing fight night in Panama City — crowning national champions by weight class.",
     "circuit.phase3Meta": "Q4 · PANAMA CITY · STREAM",
+    "circuit.visionLabel": "THE VISION",
+    "circuit.visionTitle": "<span translate=\"no\">Chemito</span> can be the <em>development factory</em> for Panama's next world champion.",
+    "circuit.visionBody1": "The National Circuit turns scattered gyms into a single system: it spots young talent, develops it on real fight cards, and projects it on an international scale. A talent pipeline, not a one-off event.",
+    "circuit.visionBody2": "And the <span translate=\"no\">Chemito</span> name unlocks media, brand, and broadcast deals no other promoter in the country can land. The opportunity already exists — it just needs the vision to execute it.",
 
     "reel.lineA": "EVERY RING.",
     "reel.lineB": "EVERY ROUND.",
@@ -1801,11 +1899,8 @@ const dict = {
     "sponsors.kicker": "SPONSORS",
     "sponsors.titleA": "OUR",
     "sponsors.titleB": "PARTNERS",
-    "sponsors.meta": "SPACES AVAILABLE<br/>COMMERCIAL INQUIRIES",
-    "sponsors.slot1": "SPONSOR 01",
-    "sponsors.slot2": "SPONSOR 02",
-    "sponsors.slot3": "SPONSOR 03",
-    "sponsors.slot4": "SPONSOR 04",
+    "sponsors.meta": "ALLIED BRANDS<br/>DEMO EXAMPLES",
+    "sponsors.note": "Demo logos. Brands shown for illustration only — no affiliation or active agreement.",
 
     "contact.kicker": "CONTACT",
     "contact.titleA": "STEP",
