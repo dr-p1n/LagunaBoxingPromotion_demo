@@ -25,6 +25,12 @@
     --gray-line: #1d1d1d;
     --gray-soft: #2a2a2a;
     --ease: cubic-bezier(.2,.8,.2,1);
+    /* Mola (Guna textile) accent palette — used in Circuito Nacional */
+    --mola-red: #b7382b;
+    --mola-orange: #e2761e;
+    --mola-gold: #e4b23c;
+    --mola-teal: #11806a;
+    --mola-cream: #efe3c8;
   }
 
   *, *::before, *::after { box-sizing: border-box; }
@@ -1391,79 +1397,186 @@
   .velada .bout:last-child .bout__num { color: var(--blue); }
   .velada .bout:last-child .bout__vs { box-shadow: 0 0 26px rgba(0,212,255,.45); }
 
+  /* "PRÓXIMO EVENTO" badge */
+  .velada__nextbadge {
+    display: flex; width: max-content; align-items: center; gap: 9px;
+    margin: 0 0 18px;
+    background: rgba(0,212,255,.12);
+    border: 1px solid rgba(0,212,255,.5);
+    color: var(--blue);
+    font-family: 'Inter', sans-serif; font-weight: 900;
+    font-size: 11px; letter-spacing: .28em; text-transform: uppercase;
+    padding: 8px 14px;
+  }
+  .velada__nextbadge::before {
+    content: ""; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--blue); box-shadow: 0 0 12px var(--blue);
+    animation: ppvBlink 1.4s ease-in-out infinite;
+  }
+
+  /* live + countdown block */
+  .velada__live { margin: 38px 0 30px; display: flex; flex-direction: column; gap: 18px; }
+
+  .velada__broadcast {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 12px 16px;
+    padding: 14px 18px;
+    border: 1px solid rgba(255,255,255,.12);
+    background: linear-gradient(90deg, rgba(255,59,59,.06), rgba(0,0,0,.32) 40%);
+    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  }
+  .velada__broadcast .live-dot {
+    width: 10px; height: 10px; border-radius: 50%; background: #ff3b3b;
+    animation: liveDot 1.5s ease-out infinite; flex: 0 0 auto;
+  }
+  @keyframes liveDot {
+    0%   { box-shadow: 0 0 0 0 rgba(255,59,59,.55); }
+    70%  { box-shadow: 0 0 0 11px rgba(255,59,59,0); }
+    100% { box-shadow: 0 0 0 0 rgba(255,59,59,0); }
+  }
+  .velada__broadcast .b-live {
+    font-family: 'Inter', sans-serif; font-weight: 900;
+    font-size: 12px; letter-spacing: .2em; color: #fff;
+  }
+  .velada__broadcast .b-lead {
+    font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: rgba(255,255,255,.55);
+  }
+  .velada__broadcast .b-brands {
+    font-family: 'Inter', sans-serif; font-weight: 900;
+    font-size: 13px; letter-spacing: .1em; color: var(--blue);
+  }
+  .velada__broadcast .b-ppv {
+    margin-left: auto;
+    border: 1px solid rgba(255,255,255,.3); color: rgba(255,255,255,.8);
+    font-size: 10px; letter-spacing: .2em; padding: 6px 11px; font-weight: 700;
+  }
+
+  .countdown { display: flex; align-items: stretch; gap: 12px; flex-wrap: wrap; }
+  .cd__unit {
+    flex: 1 1 0; min-width: 76px;
+    display: flex; flex-direction: column; align-items: center; gap: 7px;
+    padding: 16px 10px;
+    border: 1px solid rgba(255,255,255,.1);
+    background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.012)), rgba(0,0,0,.34);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    position: relative; overflow: hidden;
+  }
+  .cd__unit::after {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0,212,255,.85), transparent);
+  }
+  .cd__num {
+    font-family: 'Inter', sans-serif; font-weight: 900;
+    font-size: clamp(28px, 5vw, 46px); line-height: 1; color: #fff;
+    font-variant-numeric: tabular-nums;
+  }
+  .cd__label { font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: var(--blue); }
+  .velada__live-note { margin: 0; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); }
+  @media (max-width: 560px) {
+    .cd__unit { flex: 1 1 calc(50% - 6px); }   /* 2×2 grid on phones */
+    .velada__broadcast .b-ppv { margin-left: 0; }
+  }
+
   /* =====================================================================
-     ART DIRECTION VARIANT B — CIRCUITO NACIONAL → "fight-night zine" (raw)
+     ART DIRECTION VARIANT B — CIRCUITO NACIONAL → "Mola" (Guna textile)
+     Frame + accents on a dark base; black + electric blue stay dominant.
      ===================================================================== */
-  .circuit { background: #0c0b0a; overflow: hidden; }
+  .circuit { background: #0a0908; overflow: hidden; padding-top: 150px; padding-bottom: 150px; }
   .circuit .container { position: relative; z-index: 2; }
 
-  .circuit__grain, .circuit__flecks {
-    position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  /* Mola border bands (greca / diente de sierra) top & bottom */
+  .circuit__band {
+    position: absolute; left: 0; right: 0; height: 22px; z-index: 1;
+    pointer-events: none;
+    background-repeat: repeat-x; background-position: center;
+    background-size: auto 22px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='22'%3E%3Crect width='48' height='22' fill='%230a0908'/%3E%3Crect width='48' height='3' y='0' fill='%2311806a'/%3E%3Cpath d='M0 22 L12 6 L24 22 L36 6 L48 22 Z' fill='%23b7382b'/%3E%3Cpath d='M0 22 L12 12 L24 22 L36 12 L48 22 Z' fill='%23e4b23c'/%3E%3C/svg%3E");
   }
-  .circuit__grain {
-    opacity: .14; mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
-  }
-  .circuit__flecks {
-    opacity: .55;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Ccircle cx='14' cy='30' r='2.2' fill='%23ff2e4d'/%3E%3Ccircle cx='60' cy='12' r='1.6' fill='%2300d4ff'/%3E%3Ccircle cx='110' cy='46' r='2.4' fill='%23ffd400'/%3E%3Ccircle cx='160' cy='20' r='1.4' fill='%23ffffff'/%3E%3Ccircle cx='210' cy='40' r='2' fill='%23ff2e4d'/%3E%3Ccircle cx='250' cy='16' r='1.8' fill='%2300d4ff'/%3E%3Ccircle cx='30' cy='90' r='1.5' fill='%23ffd400'/%3E%3Ccircle cx='88' cy='110' r='2.2' fill='%23ff2e4d'/%3E%3Ccircle cx='140' cy='96' r='1.6' fill='%2300d4ff'/%3E%3Ccircle cx='196' cy='120' r='2.4' fill='%23ffd400'/%3E%3Ccircle cx='244' cy='100' r='1.5' fill='%23ffffff'/%3E%3Ccircle cx='18' cy='150' r='2' fill='%2300d4ff'/%3E%3Ccircle cx='70' cy='176' r='1.7' fill='%23ffd400'/%3E%3Ccircle cx='122' cy='158' r='2.3' fill='%23ff2e4d'/%3E%3Ccircle cx='174' cy='184' r='1.5' fill='%2300d4ff'/%3E%3Ccircle cx='226' cy='168' r='2' fill='%23ff2e4d'/%3E%3Ccircle cx='40' cy='220' r='1.8' fill='%23ffffff'/%3E%3Ccircle cx='96' cy='242' r='2.2' fill='%23ffd400'/%3E%3Ccircle cx='150' cy='224' r='1.5' fill='%23ff2e4d'/%3E%3Ccircle cx='204' cy='248' r='1.9' fill='%2300d4ff'/%3E%3Ccircle cx='258' cy='232' r='2.1' fill='%23ffd400'/%3E%3Ccircle cx='264' cy='272' r='1.6' fill='%23ff2e4d'/%3E%3C/svg%3E");
-  }
+  .circuit__band--top { top: 0; }
+  .circuit__band--bottom { bottom: 0; transform: scaleY(-1); }
 
-  /* stamped sticker kicker */
-  .circuit .section__kicker {
-    display: inline-block;
-    background: #ece7dc; color: #0a0a0a;
-    padding: 6px 12px; letter-spacing: .3em;
-    transform: rotate(-2deg);
-    box-shadow: 3px 3px 0 rgba(0,0,0,.55);
-  }
-  .circuit .section__kicker::before { display: none; }
+  /* kicker as a clean mola-gold label */
+  .circuit .section__kicker { color: var(--mola-gold); }
+  .circuit .section__kicker::before { background: var(--mola-red); width: 34px; }
 
-  /* risograph mis-registration title */
+  /* appliqué "echo" title — layered fabric depth, em stays brand blue */
   .circuit .section__title {
-    text-shadow: 3px 0 0 rgba(255,46,77,.55), -3px 0 0 rgba(0,212,255,.55);
+    color: var(--mola-cream);
+    text-shadow:
+      3px 3px 0 #000,
+      6px 6px 0 var(--mola-red),
+      9px 9px 0 var(--mola-gold);
   }
-  .circuit .section__title em { color: #ffd400; -webkit-text-fill-color: #ffd400; }
+  .circuit .section__title em { color: var(--blue); -webkit-text-fill-color: var(--blue); }
 
-  /* photocopy / torn-paper phase cards */
+  /* mola panel phase cards — concentric ring frame + emblem */
   .circuit .phase {
-    background: #e9e3d6;
-    color: #15110d;
+    background:
+      radial-gradient(120% 140% at 50% -20%, rgba(17,128,106,.10), transparent 60%),
+      #11100e;
+    color: var(--mola-cream);
     border: 0;
-    padding: 32px 28px 30px;
-    filter: drop-shadow(0 16px 26px rgba(0,0,0,.6));
-    rotate: -1.2deg;
-    transition: rotate .35s var(--ease), translate .35s var(--ease), filter .35s var(--ease);
-    clip-path: polygon(
-      0% 4%, 6% 2%, 13% 5%, 21% 1.5%, 30% 4.5%, 39% 1%, 48% 4.5%, 57% 1.5%, 66% 4.5%, 75% 1%, 84% 4.5%, 92% 2%, 100% 4%,
-      100% 96%, 93% 99%, 85% 95.5%, 77% 99%, 68% 96%, 59% 99%, 50% 95.5%, 41% 99%, 32% 96%, 23% 99%, 15% 95.5%, 7% 99%, 0% 96%
-    );
+    padding: 46px 30px 30px;
+    overflow: hidden;
+    box-shadow:
+      inset 0 0 0 2px var(--mola-cream),
+      inset 0 0 0 5px #0a0908,
+      inset 0 0 0 7px var(--mola-red),
+      inset 0 0 0 10px #0a0908,
+      inset 0 0 0 12px var(--mola-gold),
+      0 18px 40px rgba(0,0,0,.55);
+    transition: transform .35s var(--ease), box-shadow .35s var(--ease);
   }
-  .circuit .phase:nth-child(2) { rotate: 1deg; }
-  .circuit .phase:nth-child(3) { rotate: -.6deg; }
-  .circuit .phase::before { display: none; }   /* kill base blue top line */
+  /* sawtooth accent strip inside the frame */
+  .circuit .phase::before {
+    display: block; content: ""; transform: none;
+    position: absolute; left: 14px; right: 14px; top: 16px; height: 9px;
+    background: transparent;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='9'%3E%3Cpath d='M0 9 L8 0 L16 9 L24 0 L32 9 Z' fill='%23b7382b'/%3E%3Cpath d='M0 9 L8 3 L16 9 L24 3 L32 9 Z' fill='%23e4b23c'/%3E%3C/svg%3E");
+    background-repeat: repeat-x; background-size: auto 9px;
+    opacity: .9;
+  }
+  /* concentric-diamond mola emblem, top-right */
+  .circuit .phase::after {
+    content: ""; position: absolute; top: 20px; right: 18px;
+    width: 34px; height: 34px; opacity: .9;
+    background-repeat: no-repeat; background-size: contain;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cg fill='none' stroke-width='2.4'%3E%3Crect x='5' y='5' width='30' height='30' transform='rotate(45 20 20)' stroke='%23efe3c8'/%3E%3Crect x='10' y='10' width='20' height='20' transform='rotate(45 20 20)' stroke='%23b7382b'/%3E%3Crect x='15' y='15' width='10' height='10' transform='rotate(45 20 20)' stroke='%23e4b23c'/%3E%3C/g%3E%3Ccircle cx='20' cy='20' r='2.4' fill='%2311806a'/%3E%3C/svg%3E");
+  }
   .circuit .phase:hover {
-    rotate: 0deg; translate: 0 -6px;
-    filter: drop-shadow(0 22px 34px rgba(0,0,0,.7));
-    background: #f2ece0;
+    transform: translateY(-6px);
+    box-shadow:
+      inset 0 0 0 2px var(--mola-cream),
+      inset 0 0 0 5px #0a0908,
+      inset 0 0 0 7px var(--mola-orange),
+      inset 0 0 0 10px #0a0908,
+      inset 0 0 0 12px var(--blue),
+      0 26px 50px rgba(0,0,0,.7);
   }
   .circuit .phase__num {
     display: inline-block;
-    color: #fff; background: #c01933;
-    padding: 4px 11px; margin-bottom: 16px;
-    letter-spacing: .18em;
-    transform: rotate(-3deg);
-    border: 1px solid rgba(0,0,0,.35);
-    box-shadow: 2px 2px 0 rgba(0,0,0,.4);
+    color: #0a0908; background: var(--mola-gold);
+    padding: 5px 12px; margin: 6px 0 16px;
+    letter-spacing: .2em; transform: none; border: 0;
+    box-shadow: 0 0 0 2px #0a0908, 0 0 0 4px var(--mola-red);
   }
-  .circuit .phase__title { color: #0a0a0a; }
-  .circuit .phase__desc { color: rgba(0,0,0,.72); }
-  .circuit .phase__meta { color: rgba(0,0,0,.6); border-top: 1px dashed rgba(0,0,0,.28); }
+  .circuit .phase__title { color: var(--mola-cream); }
+  .circuit .phase__desc { color: rgba(239,227,200,.72); }
+  .circuit .phase__meta { color: rgba(239,227,200,.6); border-top: 2px solid var(--mola-teal); padding-top: 16px; }
 
-  /* subtle riso offset on circuit stat numbers */
-  .circuit .circuit__stat-num {
-    text-shadow: 2px 0 0 rgba(255,46,77,.35), -2px 0 0 rgba(0,212,255,.35);
+  /* phases divider → mola sawtooth in place of blue hairlines */
+  .circuit .circuit__phases-head { color: var(--mola-gold); }
+  .circuit .circuit__phases-head::before,
+  .circuit .circuit__phases-head::after {
+    height: 11px; background: transparent;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='11'%3E%3Cpath d='M0 11 L8 1 L16 11 L24 1 L32 11 Z' fill='%23b7382b'/%3E%3Cpath d='M0 11 L8 5 L16 11 L24 5 L32 11 Z' fill='%23e4b23c'/%3E%3C/svg%3E");
+    background-repeat: repeat-x; background-size: auto 11px;
+    opacity: .85;
   }
+
+  /* warm mola treatment for circuit stats */
+  .circuit .circuit__stat { border-left: 3px solid var(--mola-red); }
+  .circuit .circuit__stat-num { color: var(--mola-cream); text-shadow: 2px 2px 0 var(--mola-red); }
+  .circuit .circuit__stat-label { color: rgba(239,227,200,.65); }
 
   /* Fallback if GSAP CDN fails to load — never leave content hidden */
   .no-gsap .reveal,
@@ -1554,14 +1667,32 @@
   <div class="container">
     <div class="section__head reveal">
       <div>
+        <span class="velada__nextbadge" data-i18n="velada.nextBadge">PRÓXIMO EVENTO</span>
         <p class="section__kicker" data-i18n="velada.kicker">PRÓXIMA VELADA</p>
         <h2 class="section__title"><span data-i18n="velada.titleA">NOCHE</span> <em data-i18n="velada.titleB">ELÉCTRICA</em></h2>
       </div>
       <div class="section__meta" data-i18n="velada.meta">VIE · 18 DIC 2026<br/>CIUDAD DE PANAMÁ</div>
     </div>
 
+    <div class="velada__live reveal">
+      <div class="velada__broadcast">
+        <span class="live-dot" aria-hidden="true"></span>
+        <span class="b-live" data-i18n="velada.liveLabel">EN VIVO</span>
+        <span class="b-lead" data-i18n="velada.broadcastLead">TRANSMISIÓN POR</span>
+        <span class="b-brands" translate="no">LAGUNA PREMIUM · RPC · BETCRIS</span>
+        <span class="b-ppv" data-i18n="velada.ppvTag">PAY-PER-VIEW</span>
+      </div>
+      <div class="countdown" id="countdown" data-deadline="2026-12-18T20:00:00-05:00" aria-label="Countdown">
+        <div class="cd__unit"><span class="cd__num" data-cd="days">000</span><span class="cd__label" data-i18n="cd.days">DÍAS</span></div>
+        <div class="cd__unit"><span class="cd__num" data-cd="hours">00</span><span class="cd__label" data-i18n="cd.hours">HORAS</span></div>
+        <div class="cd__unit"><span class="cd__num" data-cd="mins">00</span><span class="cd__label" data-i18n="cd.mins">MIN</span></div>
+        <div class="cd__unit"><span class="cd__num" data-cd="secs">00</span><span class="cd__label" data-i18n="cd.secs">SEG</span></div>
+      </div>
+      <p class="velada__live-note" data-i18n="velada.demoNote">Demo · fecha y transmisión ilustrativas.</p>
+    </div>
+
     <div class="card-event reveal">
-      <span class="ppv-pill" translate="no">PPV<span data-i18n="velada.ppv">· EN VIVO</span></span>
+      <span class="ppv-pill" translate="no">PPV</span>
       <span data-i18n="velada.eventLabel">VELADA FIN DE AÑO</span>
       <span><strong>03</strong> <span data-i18n="velada.eventBouts">PELEAS</span></span>
       <span data-i18n="velada.eventVenue">ARENA ROBERTO DURÁN · CIUDAD DE PANAMÁ</span>
@@ -1655,8 +1786,8 @@
 </section>
 
 <section class="circuit" id="circuito">
-  <div class="circuit__grain" aria-hidden="true"></div>
-  <div class="circuit__flecks" aria-hidden="true"></div>
+  <div class="circuit__band circuit__band--top" aria-hidden="true"></div>
+  <div class="circuit__band circuit__band--bottom" aria-hidden="true"></div>
   <div class="container">
     <div class="section__head reveal">
       <div>
@@ -1925,6 +2056,15 @@ const dict = {
     "velada.eventLabel": "VELADA FIN DE AÑO",
     "velada.eventBouts": "PELEAS",
     "velada.eventVenue": "ARENA ROBERTO DURÁN · CIUDAD DE PANAMÁ",
+    "velada.nextBadge": "PRÓXIMO EVENTO",
+    "velada.liveLabel": "EN VIVO",
+    "velada.broadcastLead": "TRANSMISIÓN POR",
+    "velada.ppvTag": "PAY-PER-VIEW",
+    "velada.demoNote": "Demo · fecha y transmisión ilustrativas.",
+    "cd.days": "DÍAS",
+    "cd.hours": "HORAS",
+    "cd.mins": "MIN",
+    "cd.secs": "SEG",
 
     "bout.cornerRed": "ESQUINA ROJA",
     "bout.cornerBlue": "ESQUINA AZUL",
@@ -2034,6 +2174,15 @@ const dict = {
     "velada.eventLabel": "YEAR-END FIGHT NIGHT",
     "velada.eventBouts": "BOUTS",
     "velada.eventVenue": "ROBERTO DURÁN ARENA · PANAMA CITY",
+    "velada.nextBadge": "NEXT EVENT",
+    "velada.liveLabel": "LIVE",
+    "velada.broadcastLead": "BROADCAST BY",
+    "velada.ppvTag": "PAY-PER-VIEW",
+    "velada.demoNote": "Demo · illustrative date & broadcast.",
+    "cd.days": "DAYS",
+    "cd.hours": "HOURS",
+    "cd.mins": "MIN",
+    "cd.secs": "SEC",
 
     "bout.cornerRed": "RED CORNER",
     "bout.cornerBlue": "BLUE CORNER",
@@ -2159,6 +2308,43 @@ const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 40);
 }, { passive: true });
+
+/* ============ COUNTDOWN (independent of GSAP) ============ */
+(function(){
+  const el = document.getElementById('countdown');
+  if (!el) return;
+  const deadline = new Date(el.getAttribute('data-deadline')).getTime();
+  const f = {
+    days:  el.querySelector('[data-cd="days"]'),
+    hours: el.querySelector('[data-cd="hours"]'),
+    mins:  el.querySelector('[data-cd="mins"]'),
+    secs:  el.querySelector('[data-cd="secs"]')
+  };
+  const pad = n => (n < 10 ? '0' : '') + n;
+  function tick(){
+    let diff = deadline - Date.now();
+    if (isNaN(deadline)) return true;
+    if (diff <= 0){
+      el.classList.add('is-live');
+      if (f.days)  f.days.textContent  = '0';
+      if (f.hours) f.hours.textContent = '00';
+      if (f.mins)  f.mins.textContent  = '00';
+      if (f.secs)  f.secs.textContent  = '00';
+      return true; // done
+    }
+    let s = Math.floor(diff / 1000);
+    const d = Math.floor(s / 86400); s -= d * 86400;
+    const h = Math.floor(s / 3600);  s -= h * 3600;
+    const m = Math.floor(s / 60);    s -= m * 60;
+    if (f.days)  f.days.textContent  = String(d);
+    if (f.hours) f.hours.textContent = pad(h);
+    if (f.mins)  f.mins.textContent  = pad(m);
+    if (f.secs)  f.secs.textContent  = pad(s);
+    return false;
+  }
+  if (tick()) return;
+  const iv = setInterval(() => { if (tick()) clearInterval(iv); }, 1000);
+})();
 
 /* ================= GSAP ================= */
 function lagunaNoGsapFallback() {
