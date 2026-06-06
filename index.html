@@ -1482,6 +1482,13 @@
      ===================================================================== */
   .circuit { background: #0a0908; overflow: hidden; padding-top: 150px; padding-bottom: 150px; }
   .circuit .container { position: relative; z-index: 2; }
+  /* large faint mola medallion watermark */
+  .circuit::after {
+    content: ""; position: absolute; z-index: 1; pointer-events: none;
+    top: 60px; right: -120px; width: 420px; height: 420px; opacity: .14;
+    background-repeat: no-repeat; background-size: contain;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cg fill='none'%3E%3Ccircle cx='100' cy='100' r='94' stroke='%23efe3c8' stroke-width='4'/%3E%3Ccircle cx='100' cy='100' r='80' stroke='%23b7382b' stroke-width='7'/%3E%3Ccircle cx='100' cy='100' r='64' stroke='%23e4b23c' stroke-width='7' stroke-dasharray='6 6'/%3E%3Ccircle cx='100' cy='100' r='48' stroke='%2311806a' stroke-width='5'/%3E%3Ccircle cx='100' cy='100' r='30' stroke='%23b7382b' stroke-width='5'/%3E%3Cpath d='M100 58 L100 142 M58 100 L142 100' stroke='%23efe3c8' stroke-width='3'/%3E%3C/g%3E%3Ccircle cx='100' cy='100' r='8' fill='%23e4b23c'/%3E%3C/svg%3E");
+  }
 
   /* Mola border bands (greca / diente de sierra) top & bottom */
   .circuit__band {
@@ -1511,8 +1518,11 @@
   /* mola panel phase cards — concentric ring frame + emblem */
   .circuit .phase {
     background:
+      /* mola labyrinth (greca) fill — faint square-spiral field */
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='46' height='46'%3E%3Cpath d='M6 6 H40 V40 H12 V12 H34 V34 H18 V18 H28 V28 H23' fill='none' stroke='%23e4b23c' stroke-opacity='0.08' stroke-width='2'/%3E%3C/svg%3E"),
       radial-gradient(120% 140% at 50% -20%, rgba(17,128,106,.10), transparent 60%),
       #11100e;
+    background-repeat: repeat, no-repeat, no-repeat;
     color: var(--mola-cream);
     border: 0;
     padding: 46px 30px 30px;
@@ -1535,12 +1545,12 @@
     background-repeat: repeat-x; background-size: auto 9px;
     opacity: .9;
   }
-  /* concentric-diamond mola emblem, top-right */
+  /* concentric-circle mola medallion (rosette + quincunx), top-right */
   .circuit .phase::after {
-    content: ""; position: absolute; top: 20px; right: 18px;
-    width: 34px; height: 34px; opacity: .9;
+    content: ""; position: absolute; top: 18px; right: 16px;
+    width: 44px; height: 44px; opacity: .95;
     background-repeat: no-repeat; background-size: contain;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cg fill='none' stroke-width='2.4'%3E%3Crect x='5' y='5' width='30' height='30' transform='rotate(45 20 20)' stroke='%23efe3c8'/%3E%3Crect x='10' y='10' width='20' height='20' transform='rotate(45 20 20)' stroke='%23b7382b'/%3E%3Crect x='15' y='15' width='10' height='10' transform='rotate(45 20 20)' stroke='%23e4b23c'/%3E%3C/g%3E%3Ccircle cx='20' cy='20' r='2.4' fill='%2311806a'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Ccircle cx='32' cy='32' r='30' fill='none' stroke='%23efe3c8' stroke-width='2'/%3E%3Ccircle cx='32' cy='32' r='25' fill='none' stroke='%23b7382b' stroke-width='3'/%3E%3Ccircle cx='32' cy='32' r='19' fill='none' stroke='%23e4b23c' stroke-width='3' stroke-dasharray='3 3'/%3E%3Ccircle cx='32' cy='32' r='12' fill='none' stroke='%2311806a' stroke-width='2.5'/%3E%3Ccircle cx='32' cy='32' r='3' fill='%23e4b23c'/%3E%3Ccircle cx='32' cy='8' r='2.4' fill='%23efe3c8'/%3E%3Ccircle cx='32' cy='56' r='2.4' fill='%23efe3c8'/%3E%3Ccircle cx='8' cy='32' r='2.4' fill='%23efe3c8'/%3E%3Ccircle cx='56' cy='32' r='2.4' fill='%23efe3c8'/%3E%3C/svg%3E");
   }
   .circuit .phase:hover {
     transform: translateY(-6px);
