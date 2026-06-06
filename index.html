@@ -1312,6 +1312,170 @@
     .nav__lang button { padding: 10px 12px; }
   }
 
+  /* =====================================================================
+     ART DIRECTION VARIANT A — PRÓXIMA VELADA  → "Showtime PPV" (premium)
+     ===================================================================== */
+  .velada {
+    background:
+      radial-gradient(120% 80% at 50% -8%, rgba(0,212,255,.10), transparent 55%),
+      radial-gradient(70% 50% at 50% 0%, rgba(255,255,255,.05), transparent 60%),
+      linear-gradient(180deg, #07090b 0%, #000 62%);
+    overflow: hidden;
+  }
+  .velada::before {                 /* spotlight beam */
+    content: "";
+    position: absolute;
+    top: -12%; left: 50%;
+    width: 150%; max-width: 1500px; height: 75%;
+    transform: translateX(-50%);
+    background: radial-gradient(ellipse 38% 70% at 50% 0%, rgba(0,212,255,.16), transparent 70%);
+    filter: blur(22px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .velada .container { position: relative; z-index: 1; }
+
+  .velada .section__kicker::after {
+    content: "PAY-PER-VIEW · DEMO";
+    margin-left: 14px; padding-left: 14px;
+    border-left: 1px solid rgba(255,255,255,.28);
+    color: rgba(255,255,255,.55);
+    letter-spacing: .3em;
+  }
+
+  /* metallic NOCHE + glossy moving-sheen ELÉCTRICA */
+  .velada .section__title span {
+    background: linear-gradient(180deg, #fff 0%, #d4dbe0 46%, #97a1a9 62%, #fff 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+  }
+  .velada .section__title em {
+    background: linear-gradient(110deg, #0a90b4 0%, #00d4ff 30%, #ffffff 48%, #00d4ff 66%, #0a90b4 100%);
+    background-size: 250% 100%;
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+    animation: ppvSheen 6s linear infinite;
+  }
+  @keyframes ppvSheen { 0% { background-position: 220% 0; } 100% { background-position: -40% 0; } }
+
+  /* glassy PPV banner */
+  .velada .card-event {
+    border: 1px solid rgba(255,255,255,.14);
+    background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.015)), rgba(0,0,0,.35);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    position: relative; overflow: hidden;
+    padding: 22px 26px;
+    letter-spacing: .2em;
+  }
+  .velada .card-event::after {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0,212,255,.9), transparent);
+  }
+  .velada .ppv-pill {
+    display: inline-flex; align-items: center; gap: 9px;
+    background: var(--blue); color: #001016;
+    font-family: 'Inter', sans-serif; font-weight: 900;
+    font-size: 11px; letter-spacing: .18em; padding: 7px 13px;
+    box-shadow: 0 0 26px rgba(0,212,255,.5);
+  }
+  .velada .ppv-pill::before {
+    content: ""; width: 7px; height: 7px; border-radius: 50%;
+    background: #001016; animation: ppvBlink 1.4s ease-in-out infinite;
+  }
+  @keyframes ppvBlink { 0%,100% { opacity: 1; } 50% { opacity: .2; } }
+
+  /* main-event emphasis */
+  .velada .bout:last-child {
+    background: linear-gradient(90deg, rgba(0,212,255,.07), transparent 65%);
+  }
+  .velada .bout:last-child .bout__num { color: var(--blue); }
+  .velada .bout:last-child .bout__vs { box-shadow: 0 0 26px rgba(0,212,255,.45); }
+
+  /* =====================================================================
+     ART DIRECTION VARIANT B — CIRCUITO NACIONAL → "fight-night zine" (raw)
+     ===================================================================== */
+  .circuit { background: #0c0b0a; overflow: hidden; }
+  .circuit .container { position: relative; z-index: 2; }
+
+  .circuit__grain, .circuit__flecks {
+    position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  }
+  .circuit__grain {
+    opacity: .14; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  }
+  .circuit__flecks {
+    opacity: .55;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Ccircle cx='14' cy='30' r='2.2' fill='%23ff2e4d'/%3E%3Ccircle cx='60' cy='12' r='1.6' fill='%2300d4ff'/%3E%3Ccircle cx='110' cy='46' r='2.4' fill='%23ffd400'/%3E%3Ccircle cx='160' cy='20' r='1.4' fill='%23ffffff'/%3E%3Ccircle cx='210' cy='40' r='2' fill='%23ff2e4d'/%3E%3Ccircle cx='250' cy='16' r='1.8' fill='%2300d4ff'/%3E%3Ccircle cx='30' cy='90' r='1.5' fill='%23ffd400'/%3E%3Ccircle cx='88' cy='110' r='2.2' fill='%23ff2e4d'/%3E%3Ccircle cx='140' cy='96' r='1.6' fill='%2300d4ff'/%3E%3Ccircle cx='196' cy='120' r='2.4' fill='%23ffd400'/%3E%3Ccircle cx='244' cy='100' r='1.5' fill='%23ffffff'/%3E%3Ccircle cx='18' cy='150' r='2' fill='%2300d4ff'/%3E%3Ccircle cx='70' cy='176' r='1.7' fill='%23ffd400'/%3E%3Ccircle cx='122' cy='158' r='2.3' fill='%23ff2e4d'/%3E%3Ccircle cx='174' cy='184' r='1.5' fill='%2300d4ff'/%3E%3Ccircle cx='226' cy='168' r='2' fill='%23ff2e4d'/%3E%3Ccircle cx='40' cy='220' r='1.8' fill='%23ffffff'/%3E%3Ccircle cx='96' cy='242' r='2.2' fill='%23ffd400'/%3E%3Ccircle cx='150' cy='224' r='1.5' fill='%23ff2e4d'/%3E%3Ccircle cx='204' cy='248' r='1.9' fill='%2300d4ff'/%3E%3Ccircle cx='258' cy='232' r='2.1' fill='%23ffd400'/%3E%3Ccircle cx='264' cy='272' r='1.6' fill='%23ff2e4d'/%3E%3C/svg%3E");
+  }
+
+  /* stamped sticker kicker */
+  .circuit .section__kicker {
+    display: inline-block;
+    background: #ece7dc; color: #0a0a0a;
+    padding: 6px 12px; letter-spacing: .3em;
+    transform: rotate(-2deg);
+    box-shadow: 3px 3px 0 rgba(0,0,0,.55);
+  }
+  .circuit .section__kicker::before { display: none; }
+
+  /* risograph mis-registration title */
+  .circuit .section__title {
+    text-shadow: 3px 0 0 rgba(255,46,77,.55), -3px 0 0 rgba(0,212,255,.55);
+  }
+  .circuit .section__title em { color: #ffd400; -webkit-text-fill-color: #ffd400; }
+
+  /* photocopy / torn-paper phase cards */
+  .circuit .phase {
+    background: #e9e3d6;
+    color: #15110d;
+    border: 0;
+    padding: 32px 28px 30px;
+    filter: drop-shadow(0 16px 26px rgba(0,0,0,.6));
+    rotate: -1.2deg;
+    transition: rotate .35s var(--ease), translate .35s var(--ease), filter .35s var(--ease);
+    clip-path: polygon(
+      0% 4%, 6% 2%, 13% 5%, 21% 1.5%, 30% 4.5%, 39% 1%, 48% 4.5%, 57% 1.5%, 66% 4.5%, 75% 1%, 84% 4.5%, 92% 2%, 100% 4%,
+      100% 96%, 93% 99%, 85% 95.5%, 77% 99%, 68% 96%, 59% 99%, 50% 95.5%, 41% 99%, 32% 96%, 23% 99%, 15% 95.5%, 7% 99%, 0% 96%
+    );
+  }
+  .circuit .phase:nth-child(2) { rotate: 1deg; }
+  .circuit .phase:nth-child(3) { rotate: -.6deg; }
+  .circuit .phase::before { display: none; }   /* kill base blue top line */
+  .circuit .phase:hover {
+    rotate: 0deg; translate: 0 -6px;
+    filter: drop-shadow(0 22px 34px rgba(0,0,0,.7));
+    background: #f2ece0;
+  }
+  .circuit .phase__num {
+    display: inline-block;
+    color: #fff; background: #c01933;
+    padding: 4px 11px; margin-bottom: 16px;
+    letter-spacing: .18em;
+    transform: rotate(-3deg);
+    border: 1px solid rgba(0,0,0,.35);
+    box-shadow: 2px 2px 0 rgba(0,0,0,.4);
+  }
+  .circuit .phase__title { color: #0a0a0a; }
+  .circuit .phase__desc { color: rgba(0,0,0,.72); }
+  .circuit .phase__meta { color: rgba(0,0,0,.6); border-top: 1px dashed rgba(0,0,0,.28); }
+
+  /* subtle riso offset on circuit stat numbers */
+  .circuit .circuit__stat-num {
+    text-shadow: 2px 0 0 rgba(255,46,77,.35), -2px 0 0 rgba(0,212,255,.35);
+  }
+
+  /* Fallback if GSAP CDN fails to load — never leave content hidden */
+  .no-gsap .reveal,
+  .no-gsap .reveal-left,
+  .no-gsap .reveal-right { opacity: 1 !important; transform: none !important; }
+  .no-gsap .hero__eyebrow,
+  .no-gsap .hero__logo,
+  .no-gsap .hero__sub,
+  .no-gsap .hero__tagline,
+  .no-gsap .hero__cta { opacity: 1 !important; }
+  .no-gsap .portrait { clip-path: none !important; }
+
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       animation-duration: .001ms !important;
@@ -1397,6 +1561,7 @@
     </div>
 
     <div class="card-event reveal">
+      <span class="ppv-pill" translate="no">PPV<span data-i18n="velada.ppv">· EN VIVO</span></span>
       <span data-i18n="velada.eventLabel">VELADA FIN DE AÑO</span>
       <span><strong>03</strong> <span data-i18n="velada.eventBouts">PELEAS</span></span>
       <span data-i18n="velada.eventVenue">ARENA ROBERTO DURÁN · CIUDAD DE PANAMÁ</span>
@@ -1490,6 +1655,8 @@
 </section>
 
 <section class="circuit" id="circuito">
+  <div class="circuit__grain" aria-hidden="true"></div>
+  <div class="circuit__flecks" aria-hidden="true"></div>
   <div class="container">
     <div class="section__head reveal">
       <div>
@@ -1754,6 +1921,7 @@ const dict = {
     "velada.titleA": "NOCHE",
     "velada.titleB": "ELÉCTRICA",
     "velada.meta": "VIE · 18 DIC 2026<br/>CIUDAD DE PANAMÁ",
+    "velada.ppv": "· EN VIVO",
     "velada.eventLabel": "VELADA FIN DE AÑO",
     "velada.eventBouts": "PELEAS",
     "velada.eventVenue": "ARENA ROBERTO DURÁN · CIUDAD DE PANAMÁ",
@@ -1862,6 +2030,7 @@ const dict = {
     "velada.titleA": "ELECTRIC",
     "velada.titleB": "NIGHT",
     "velada.meta": "FRI · DEC 18 2026<br/>PANAMA CITY",
+    "velada.ppv": "· LIVE",
     "velada.eventLabel": "YEAR-END FIGHT NIGHT",
     "velada.eventBouts": "BOUTS",
     "velada.eventVenue": "ROBERTO DURÁN ARENA · PANAMA CITY",
@@ -1992,8 +2161,17 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 /* ================= GSAP ================= */
+function lagunaNoGsapFallback() {
+  document.documentElement.classList.add('no-gsap');
+  document.querySelectorAll('.count').forEach(el => {
+    if (el.dataset.target) el.textContent = el.dataset.target;
+  });
+}
 window.addEventListener('load', () => {
-  if (typeof gsap === 'undefined') return;
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+    lagunaNoGsapFallback();
+    return;
+  }
   gsap.registerPlugin(ScrollTrigger);
 
   // Hero entrance
