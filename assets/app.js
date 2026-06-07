@@ -118,6 +118,7 @@ const dict = {
     "champ.statWins": "VICTORIAS PROFESIONALES",
     "champ.statCrowned": "CORONADO CAMPEÓN MUNDIAL",
     "champ.tag": "DEMO · IMAGEN DE ARCHIVO",
+    "champ.source": "Fuente: Asociación Mundial de Boxeo (WBA) — Boxeador del Mes",
 
     "media.kicker": "MEDIOS",
     "media.titleA": "PLATAFORMAS",
@@ -160,7 +161,7 @@ const dict = {
 
     "footer.langhint": "ES | EN — Cambia el idioma arriba a la derecha",
     "footer.legal": "© 2026 Laguna Premium Boxing Promotions. Aviso de Privacidad — Ley 81 de Protección de Datos Personales de la República de Panamá: tratamos tus datos únicamente para los fines aquí descritos y nunca los compartimos sin tu consentimiento.",
-    "footer.credit": "DEMO · IMÁGENES DE ARCHIVO POR PEXELS · NO REPRESENTAN ATLETAS REALES"
+    "footer.credit": "DEMO · IMÁGENES DE ARCHIVO (PEXELS); FOTO DE CHEMITO MORENO VÍA WBA"
   },
   en: {
     "nav.home": "Home",
@@ -280,6 +281,7 @@ const dict = {
     "champ.statWins": "PRO WINS",
     "champ.statCrowned": "CROWNED WORLD CHAMPION",
     "champ.tag": "DEMO · STOCK IMAGE",
+    "champ.source": "Source: World Boxing Association (WBA) — Boxer of the Month",
 
     "media.kicker": "MEDIA",
     "media.titleA": "CONTENT",
@@ -322,7 +324,7 @@ const dict = {
 
     "footer.langhint": "ES | EN — Switch language in the top right",
     "footer.legal": "© 2026 Laguna Premium Boxing Promotions. Privacy Notice — Panama Personal Data Protection Law 81: we only process your personal data for the purposes described here and never share it without your consent.",
-    "footer.credit": "DEMO · STOCK IMAGERY VIA PEXELS · NOT REPRESENTATIVE OF REAL ATHLETES"
+    "footer.credit": "DEMO · STOCK IMAGERY (PEXELS); CHEMITO MORENO PHOTO VIA WBA"
   }
 };
 

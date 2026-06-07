@@ -1845,3 +1845,15 @@
     .flyer__meta > div { border-top: 1px dashed rgba(255,255,255,.1); padding-top: 10px; }
     .flyer__meta > div:first-child { border-top: 0; padding-top: 0; }
   }
+
+  /* WBA source backlink + photo credit (Campeones) */
+  .champ-source { margin: 6px 0 2px; }
+  .champ-source a {
+    display: inline-flex; align-items: center;
+    font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--blue); border-bottom: 1px solid rgba(0,212,255,.4); padding-bottom: 2px;
+    transition: color .2s var(--ease), border-color .2s var(--ease);
+  }
+  .champ-source a:hover { color: var(--white); border-color: var(--white); }
+  .portrait__name a { color: rgba(255,255,255,.85); transition: color .2s var(--ease); }
+  .portrait__name a:hover { color: var(--blue); }
