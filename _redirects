@@ -1,2 +1,2 @@
-/es/*  /?lang=es  200
-/en/*  /?lang=en  200
+/es/*  /:splat?lang=es  200
+/en/*  /:splat?lang=en  200

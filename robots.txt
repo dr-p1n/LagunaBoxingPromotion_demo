@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://laguna-boxing-demo.pages.dev/sitemap.xml

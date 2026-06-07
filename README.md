@@ -1,41 +1,49 @@
 # Laguna Premium Boxing Promotions — Demo
 
-Single-page demo site for **Laguna Premium Boxing Promotions** (Panama City), the boxing promotion founded by former WBA world champion Anselmo "Chemito" Moreno.
+Multi-page demo site for **Laguna Premium Boxing Promotions** (Panama City), the boxing promotion founded by former WBA world champion Anselmo "Chemito" Moreno.
 
-> **Demo only.** Placeholder fighter names and silhouette art. No real fighter photos.
+> **Demo only.** Placeholder fighter names and stock B&W imagery. No real fighter photos. Brands shown for illustration only.
 
 ## Stack
-- Vanilla HTML + CSS + JS (single `index.html`)
+- Vanilla HTML + CSS + JS, shared assets (`/assets/styles.css`, `/assets/app.js`)
 - GSAP 3 + ScrollTrigger for reveal animations
 - Cloudflare Pages
 
+## Pages
+- `/` — hero, próxima velada **Noche Eléctrica** (next-event badge, live countdown, EN VIVO broadcast bar, fight card), Explore links, medios, sponsors + casas de apuestas, contacto
+- `/circuito/` — **Circuito Nacional de Boxeo**, Mola (Guna) art direction
+- `/campeones/` — **Anselmo "Chemito" Moreno**
+- `/archivo/` — **Carteleras anteriores** (demo past events)
+
 ## Features
-- Hero with electric-blue pulse and animated grid
-- 3-bout fight card with slide-in reveals
-- Champion feature (Chemito Moreno)
-- Sponsor placeholders with hover glow
-- WhatsApp CTA
-- **Bilingual ES / EN** — instant JS toggle, default Spanish
-- `hreflang` tags + `_redirects` so `/es/` and `/en/` resolve to the right language
-- Ley 81 (Panama) privacy notice
+- **Bilingual ES / EN** — instant JS toggle (default Spanish), persisted in localStorage across pages
+- Per-page SEO: unique `<title>` / description / canonical / `hreflang` / Open Graph + **JSON-LD** (SportsOrganization, Person, SportsEvent, ItemList)
+- `sitemap.xml`, `robots.txt`, `_redirects` (`/es/*` + `/en/*` → `?lang=`)
+- Responsive nav with mobile menu + footer sitemap
+- `translate="no"` guards on proper nouns (brand, Chemito, fighters) to stop browser auto-translation mangling
+- Ley 81 (Panama) privacy notice + responsible-gaming notice
 
 ## Run locally
-Open `index.html` in a browser, or:
-
 ```bash
-npx serve .
+python3 -m http.server 4178
+# open http://localhost:4178/
 ```
+(Clean URLs like `/circuito/` need a static server that serves directory `index.html`.)
 
 ## Deploy to Cloudflare Pages
 1. Push to GitHub.
-2. In Cloudflare → Pages → **Create project → Connect to Git**, pick this repo.
+2. Cloudflare → Pages → **Create project → Connect to Git**, pick this repo.
 3. Build command: *(none)* — Output directory: `/`.
-4. Done.
 
 ## File layout
 ```
-index.html     # Whole site
-_headers       # Security + caching headers
-_redirects     # /es/ + /en/ → ?lang=es|en
-README.md
+index.html            # Home
+circuito/index.html   # Circuito Nacional (mola)
+campeones/index.html  # Chemito Moreno
+archivo/index.html    # Past fight cards
+assets/styles.css     # Shared styles
+assets/app.js         # Shared i18n + nav + countdown + GSAP
+_headers              # Security + caching headers
+_redirects            # /es/* + /en/* → ?lang=
+sitemap.xml  robots.txt
 ```

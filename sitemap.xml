@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://laguna-boxing-demo.pages.dev/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://laguna-boxing-demo.pages.dev/?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://laguna-boxing-demo.pages.dev/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://laguna-boxing-demo.pages.dev/"/>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://laguna-boxing-demo.pages.dev/circuito/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://laguna-boxing-demo.pages.dev/circuito/?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://laguna-boxing-demo.pages.dev/circuito/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://laguna-boxing-demo.pages.dev/circuito/"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://laguna-boxing-demo.pages.dev/campeones/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://laguna-boxing-demo.pages.dev/campeones/?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://laguna-boxing-demo.pages.dev/campeones/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://laguna-boxing-demo.pages.dev/campeones/"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://laguna-boxing-demo.pages.dev/archivo/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://laguna-boxing-demo.pages.dev/archivo/?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://laguna-boxing-demo.pages.dev/archivo/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://laguna-boxing-demo.pages.dev/archivo/"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+</urlset>
