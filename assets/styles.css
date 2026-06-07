@@ -12,6 +12,9 @@
     --mola-gold: #e4b23c;
     --mola-teal: #11806a;
     --mola-cream: #efe3c8;
+    /* Championship gold — used in the Campeones / Chemito section */
+    --gold: #e7c25c;
+    --gold-dim: #b8893a;
   }
 
   *, *::before, *::after { box-sizing: border-box; }
@@ -1884,3 +1887,42 @@
     box-shadow: 0 12px 40px rgba(228,178,60,.14);
   }
   .explore-card--mola .explore-card__cta { padding-right: 44px; }
+
+  /* =====================================================================
+     CHAMPIONSHIP GOLD — Campeones / Chemito section (replaces blue here)
+     ===================================================================== */
+  /* page header (campeones) */
+  .pagehead--gold {
+    background: radial-gradient(120% 80% at 50% -10%, rgba(231,194,92,.12), transparent 60%), #000;
+  }
+  .pagehead--gold .pagehead__kicker { color: var(--gold); }
+  .pagehead--gold .pagehead__kicker::before { background: var(--gold); }
+  .pagehead--gold .crumbs a:hover { color: var(--gold); }
+  .pagehead--gold .crumbs span[aria-current] { color: var(--gold); }
+  .pagehead--gold .pagehead__title em {
+    background: linear-gradient(180deg, #f7e3a1 0%, #e7c25c 46%, #b8893a 70%, #f3dd97 100%);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
+  }
+
+  /* champions section accents */
+  .champions .champ-bio__role { color: var(--gold); }
+  .champions .champ-stat__num,
+  .champions .champ-stat__num .suffix { color: var(--gold); }
+  .champions .champ-stats { border-top-color: rgba(231,194,92,.22); }
+  .champions .portrait__corner { border-color: var(--gold); }
+  .champions .portrait__badge { background: var(--gold); color: #1a1206; }
+  .champions .portrait::before {
+    background:
+      linear-gradient(to top, rgba(0,0,0,.85) 0%, rgba(0,0,0,.2) 35%, transparent 60%),
+      linear-gradient(to right, rgba(231,194,92,.12), transparent 42%);
+  }
+  .champions .portrait__name a:hover { color: var(--gold); }
+  .champions .champ-source a { color: var(--gold); border-bottom-color: rgba(231,194,92,.45); }
+  .champions .champ-source a:hover { color: var(--white); border-color: var(--white); }
+
+  /* Campeones explore card → gold accent */
+  .explore-card--gold { border-color: rgba(231,194,92,.26); }
+  .explore-card--gold::before { background: var(--gold); }
+  .explore-card--gold .explore-card__kicker,
+  .explore-card--gold .explore-card__cta { color: var(--gold); }
+  .explore-card--gold:hover { border-color: var(--gold); box-shadow: 0 12px 40px rgba(231,194,92,.14); }
