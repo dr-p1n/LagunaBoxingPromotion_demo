@@ -1899,10 +1899,7 @@
   .pagehead--gold .pagehead__kicker::before { background: var(--gold); }
   .pagehead--gold .crumbs a:hover { color: var(--gold); }
   .pagehead--gold .crumbs span[aria-current] { color: var(--gold); }
-  .pagehead--gold .pagehead__title em {
-    background: linear-gradient(180deg, #f7e3a1 0%, #e7c25c 46%, #b8893a 70%, #f3dd97 100%);
-    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
-  }
+  .pagehead--gold .pagehead__title em { color: var(--gold); -webkit-text-fill-color: var(--gold); }
 
   /* champions section accents */
   .champions .champ-bio__role { color: var(--gold); }
