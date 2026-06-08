@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preconnect" href="https://images.pexels.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@900&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;700&family=Inter:wght@900&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="/assets/styles.css" />
 
 <script type="application/ld+json">
@@ -132,31 +132,42 @@
 
 <section class="velada" id="velada">
   <div class="container">
-    <!-- FIGHT-NIGHT FLYER — UFC-style poster -->
+    <!-- FIGHT POSTER — editorial / type-led -->
     <div class="flyer reveal">
-      <div class="ufc-fighter ufc-fighter--l">
-        <span class="ufc-fighter__photo" style="background-image:url('https://images.pexels.com/photos/5485643/pexels-photo-5485643.jpeg?auto=compress&cs=tinysrgb&w=800');"></span>
-      </div>
-      <div class="ufc-fighter ufc-fighter--r">
-        <span class="ufc-fighter__photo" style="background-image:url('https://images.pexels.com/photos/34517416/pexels-photo-34517416.jpeg?auto=compress&cs=tinysrgb&w=800');"></span>
-      </div>
-      <span class="flyer__surname flyer__surname--l" translate="no">HERRERA</span>
-      <span class="flyer__surname flyer__surname--r" translate="no">SÁENZ</span>
+      <div class="pf">
+        <div class="pf__top">
+          <span class="pf__next" data-i18n="velada.nextBadge">PRÓXIMO EVENTO</span>
+          <span class="pf__live"><span data-i18n="velada.liveLabel">EN VIVO</span> · PPV</span>
+        </div>
 
-      <div class="flyer__head">
-        <span class="velada__nextbadge" data-i18n="velada.nextBadge">PRÓXIMO EVENTO</span>
-        <span class="flyer__ppv"><span data-i18n="velada.liveLabel">EN VIVO</span> · PPV</span>
-      </div>
-      <span class="flyer__brandpill" translate="no">PANAMA <em>FIGHT NIGHT</em></span>
+        <p class="pf__eyebrow" data-i18n="flyer.kicker">PRESENTA LAGUNA PREMIUM · PANAMÁ</p>
+        <h2 class="pf__title" translate="no">
+          <span>PANAMA</span><span class="blue">FIGHT</span><span>NIGHT</span>
+        </h2>
 
-      <div class="flyer__center">
-        <span class="flyer__vsbig">VS</span>
-        <span class="flyer__mainlabel" data-i18n="flyer.mainLabel">COMBATE ESTELAR</span>
-      </div>
+        <div class="pf__rule" aria-hidden="true"></div>
 
-      <div class="flyer__foot">
-        <span class="flyer__date"><span data-i18n="flyer.date">VIE · 18 DIC 2026</span> · <span data-i18n="velada.liveLabel">EN VIVO</span> · PPV</span>
-        <span class="flyer__brands" translate="no">ARENA ROBERTO DURÁN · LAGUNA PREMIUM · RPC · BETCRIS</span>
+        <p class="pf__estelar" data-i18n="flyer.mainLabel">COMBATE ESTELAR</p>
+        <div class="pf__bout">
+          <div class="pf__fighter">
+            <h3 translate="no">EL FENÓMENO</h3>
+            <p translate="no">Gabriel Herrera · 16-0</p>
+          </div>
+          <span class="pf__vs">VS</span>
+          <div class="pf__fighter pf__fighter--r">
+            <h3 translate="no">LA PANTERA</h3>
+            <p translate="no">Diego Sáenz · 18-1</p>
+          </div>
+        </div>
+
+        <div class="pf__rule" aria-hidden="true"></div>
+
+        <p class="pf__date" translate="no" data-i18n="flyer.date">VIE · 18 DIC 2026</p>
+
+        <div class="pf__foot">
+          <span class="pf__venue" translate="no">ARENA ROBERTO DURÁN · CIUDAD DE PANAMÁ</span>
+          <span class="pf__broadcast"><span data-i18n="velada.broadcastLead">TRANSMISIÓN POR</span> <b translate="no">LAGUNA PREMIUM · RPC · BETCRIS</b></span>
+        </div>
       </div>
     </div>
 
