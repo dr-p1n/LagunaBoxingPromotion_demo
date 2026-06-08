@@ -1721,146 +1721,121 @@
      FIGHT-NIGHT FLYER — poster hero for the next event (Panama Fight Night)
      ===================================================================== */
   .flyer {
-    position: relative; overflow: hidden; isolation: isolate;
-    border: 1px solid rgba(255,255,255,.14);
-    background: #050608;
-    margin-bottom: 44px;
-  }
-  .flyer__bg {
-    position: absolute; inset: 0; z-index: 0;
-    background-image: url('https://images.pexels.com/photos/24782482/pexels-photo-24782482.jpeg?auto=compress&cs=tinysrgb&w=1600');
-    background-size: cover; background-position: 50% 35%;
-    filter: grayscale(100%) contrast(1.2) brightness(.3);
-  }
-  .flyer__bg::after {
-    content: ""; position: absolute; inset: 0;
+    position: relative; width: 100%; max-width: 720px; margin: 0 auto 44px;
+    aspect-ratio: 4 / 5; overflow: hidden; isolation: isolate;
+    border: 1px solid rgba(255,255,255,.16);
     background:
-      radial-gradient(ellipse 26% 92% at 50% 52%, rgba(0,212,255,.30), transparent 62%),
-      linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.2) 38%, rgba(0,0,0,.78));
+      radial-gradient(130% 80% at 50% 4%, #1b8fd0 0%, transparent 56%),
+      linear-gradient(165deg, #1063ab 0%, #0a4d86 42%, #07335f 100%);
   }
-  .flyer__scan {
-    position: absolute; inset: 0; z-index: 1; pointer-events: none;
-    background: repeating-linear-gradient(to bottom, rgba(255,255,255,.03) 0 1px, transparent 1px 4px);
-    mix-blend-mode: overlay;
-  }
-  .flyer__grid {
-    position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  .flyer::before {  /* faint grid texture */
+    content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: .5;
     background-image:
-      linear-gradient(to right, rgba(0,212,255,.07) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(0,212,255,.07) 1px, transparent 1px);
-    background-size: 64px 64px;
-    mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 20%, transparent 78%);
-    -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 20%, transparent 78%);
-  }
-  .flyer__inner {
-    position: relative; z-index: 2;
-    padding: clamp(26px, 4vw, 50px) clamp(20px, 4vw, 54px) clamp(24px, 3.5vw, 42px);
-    display: flex; flex-direction: column; gap: clamp(18px, 2.6vw, 30px);
-  }
-  .flyer__top { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
-  .flyer__ppv {
-    display: inline-flex; align-items: center; gap: 8px;
-    border: 1px solid rgba(255,255,255,.35); color: #fff;
-    font-family: 'Inter', sans-serif; font-weight: 900;
-    font-size: 11px; letter-spacing: .18em; padding: 6px 12px;
-  }
-  .flyer__ppv::before {
-    content: ""; width: 8px; height: 8px; border-radius: 50%;
-    background: #ff3b3b; animation: liveDot 1.5s ease-out infinite;
-  }
-  .flyer__kicker {
-    margin: 0; text-align: center;
-    font-size: clamp(10px, 1.2vw, 12px); letter-spacing: .4em; text-transform: uppercase;
-    color: rgba(255,255,255,.62);
-  }
-  .flyer__title {
-    margin: 0; text-align: center;
-    font-family: 'Inter', sans-serif; font-weight: 900;
-    font-size: clamp(44px, 9.5vw, 132px); line-height: .82; letter-spacing: -.035em;
-  }
-  .flyer__title span {
-    background: linear-gradient(180deg, #fff 0%, #d4dbe0 46%, #97a1a9 62%, #fff 100%);
-    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
-  }
-  .flyer__title em {
-    background: linear-gradient(110deg, #0a90b4 0%, #00d4ff 32%, #ffffff 50%, #00d4ff 68%, #0a90b4 100%);
-    background-size: 250% 100%;
-    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
-    font-style: normal;
-    animation: ppvSheen 6s linear infinite;
+      linear-gradient(to right, rgba(255,255,255,.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,.05) 1px, transparent 1px);
+    background-size: 46px 46px;
+    -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 40%, black 30%, transparent 85%);
+            mask-image: radial-gradient(ellipse 90% 80% at 50% 40%, black 30%, transparent 85%);
   }
 
-  /* UFC-style fighter stage: flanking portraits + center seam + vertical surnames */
-  .flyer__stage {
-    position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 0;
-    border: 1px solid rgba(255,255,255,.12); background: #000; overflow: hidden; isolation: isolate;
-  }
-  .flyer__stage::before {
-    content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 3px; transform: translateX(-50%);
-    background: linear-gradient(180deg, transparent, var(--blue) 16%, var(--blue) 84%, transparent);
-    box-shadow: 0 0 34px rgba(0,212,255,.7); z-index: 3;
-  }
-  .ufc-fighter { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: #0a0a0a; }
+  /* duotone fighters fading into the blue */
+  .ufc-fighter { position: absolute; top: 11%; bottom: 13%; width: 60%; z-index: 1; overflow: hidden; }
+  .ufc-fighter--l { left: -6%; }
+  .ufc-fighter--r { right: -6%; }
   .ufc-fighter__photo {
     position: absolute; inset: 0; background-size: cover;
-    filter: grayscale(100%) contrast(1.2) brightness(.82);
+    filter: grayscale(100%) contrast(1.3) brightness(1.08);
+    mix-blend-mode: luminosity; opacity: .95;
   }
-  .ufc-fighter--l .ufc-fighter__photo { background-position: 62% 14%; }
-  .ufc-fighter--r .ufc-fighter__photo { background-position: 38% 14%; }
-  .ufc-fighter::after {
-    content: ""; position: absolute; inset: 0;
-    background:
-      linear-gradient(to bottom, transparent 36%, rgba(0,0,0,.9)),
-      radial-gradient(130% 90% at var(--seam,100%) 34%, rgba(0,212,255,.22), transparent 52%);
+  .ufc-fighter--l .ufc-fighter__photo {
+    background-position: 58% 8%;
+    -webkit-mask-image: radial-gradient(115% 100% at 32% 42%, #000 42%, transparent 75%);
+            mask-image: radial-gradient(115% 100% at 32% 42%, #000 42%, transparent 75%);
   }
-  .ufc-fighter--l::after { --seam: 100%; }
-  .ufc-fighter--r::after { --seam: 0%; }
+  .ufc-fighter--r .ufc-fighter__photo {
+    background-position: 42% 8%;
+    -webkit-mask-image: radial-gradient(115% 100% at 68% 42%, #000 42%, transparent 75%);
+            mask-image: radial-gradient(115% 100% at 68% 42%, #000 42%, transparent 75%);
+  }
   .ufc-fighter__surname {
-    position: absolute; z-index: 4; top: 50%;
+    position: absolute; z-index: 4; top: 2%;
     font-family: 'Inter', sans-serif; font-weight: 900;
-    font-size: clamp(26px, 4.6vw, 66px); letter-spacing: .01em; line-height: .85;
-    color: rgba(255,255,255,.95); text-transform: uppercase; white-space: nowrap;
-    writing-mode: vertical-rl; text-shadow: 0 2px 22px rgba(0,0,0,.9);
+    font-size: clamp(30px, 6.4vw, 78px); line-height: .8; letter-spacing: .01em;
+    color: #fff; text-transform: uppercase; white-space: nowrap;
+    writing-mode: vertical-rl; text-shadow: 0 2px 16px rgba(0,0,0,.45);
   }
-  .ufc-fighter--l .ufc-fighter__surname { left: 6px; transform: translateY(-50%) rotate(180deg); }
-  .ufc-fighter--r .ufc-fighter__surname { right: 6px; transform: translateY(-50%); }
-  .flyer__vsbadge {
-    position: absolute; z-index: 5; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    font-family: 'Inter', sans-serif; font-weight: 900; font-size: clamp(26px, 4.4vw, 58px); line-height: 1;
-    color: #fff; background: rgba(0,0,0,.62); border: 1px solid var(--blue);
-    padding: 6px 16px; box-shadow: 0 0 34px rgba(0,212,255,.55);
-    backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+  .ufc-fighter--l .ufc-fighter__surname { left: 8%; transform: rotate(180deg); }
+  .ufc-fighter--r .ufc-fighter__surname { right: 8%; }
+
+  /* white cross */
+  .flyer__cross { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+  .flyer__cross::before {
+    content: ""; position: absolute; left: 50%; top: 11%; bottom: 19%; width: 7px; transform: translateX(-50%);
+    background: #fff; box-shadow: 0 0 26px rgba(255,255,255,.4);
+  }
+  .flyer__cross::after {
+    content: ""; position: absolute; top: 47%; left: 11%; right: 11%; height: 7px; transform: translateY(-50%);
+    background: #fff; box-shadow: 0 0 26px rgba(255,255,255,.4);
   }
 
-  /* nickname + record under each fighter */
-  .flyer__names { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; text-align: center; }
-  .flyer__name h3 { margin: 0 0 5px; font-family: 'Inter', sans-serif; font-weight: 900; font-size: clamp(18px, 2.5vw, 32px); line-height: 1; letter-spacing: -.01em; }
-  .flyer__name p { margin: 0; font-size: clamp(10px, 1.1vw, 12px); letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.6); }
+  /* top badges + brand pill */
+  .flyer__head {
+    position: absolute; z-index: 6; top: 0; left: 0; right: 0;
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 10px;
+    padding: clamp(12px, 2vw, 18px) clamp(12px, 2vw, 18px);
+  }
+  .flyer__brandpill {
+    position: absolute; z-index: 6; left: 50%; top: clamp(46px, 8vw, 64px); transform: translateX(-50%);
+    background: #050608; color: #fff; border: 1px solid rgba(255,255,255,.28);
+    font-family: 'Inter', sans-serif; font-weight: 900; font-size: clamp(11px, 1.6vw, 16px);
+    letter-spacing: .12em; padding: 8px 16px; white-space: nowrap;
+  }
+  .flyer__brandpill em { color: var(--blue); font-style: normal; }
+  .flyer__ppv {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: rgba(0,0,0,.4); border: 1px solid rgba(255,255,255,.32); color: #fff;
+    font-family: 'Inter', sans-serif; font-weight: 900; font-size: 10px; letter-spacing: .14em; padding: 6px 10px;
+  }
+  .flyer__ppv::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #ff3b3b; animation: liveDot 1.5s ease-out infinite; }
+  .flyer .velada__nextbadge { margin: 0; background: rgba(0,0,0,.4); border-color: rgba(255,255,255,.42); color: #fff; font-size: 10px; padding: 6px 10px; }
+  .flyer .velada__nextbadge::before { background: var(--blue); }
+
+  /* center VS + label on the cross */
+  .flyer__center { position: absolute; z-index: 5; top: 47%; left: 50%; transform: translate(-50%, -50%); text-align: center; }
+  .flyer__vsbig {
+    display: block; font-family: 'Inter', sans-serif; font-weight: 900; line-height: .78;
+    font-size: clamp(58px, 13vw, 138px); color: #0a4d86;
+    -webkit-text-stroke: 3px #fff; paint-order: stroke fill;
+  }
+
+  /* bottom date + sponsor band */
+  .flyer__foot {
+    position: absolute; z-index: 6; left: 0; right: 0; bottom: 0;
+    display: flex; flex-direction: column; align-items: center; gap: 7px;
+    padding: clamp(12px, 2vw, 20px);
+    background: linear-gradient(to top, rgba(4,22,40,.94), transparent);
+  }
+  .flyer__date {
+    background: var(--blue); color: #04243c; font-family: 'Inter', sans-serif; font-weight: 900;
+    font-size: clamp(12px, 1.7vw, 16px); letter-spacing: .08em; padding: 7px 14px; text-align: center;
+  }
+  .flyer__brands { font-family: 'Inter', sans-serif; font-weight: 900; font-size: clamp(9px, 1.25vw, 12px); letter-spacing: .12em; color: rgba(255,255,255,.85); text-align: center; }
+
   .flyer__mainlabel {
-    display: block; text-align: center; margin: 0;
-    font-size: 11px; letter-spacing: .34em; text-transform: uppercase; color: var(--blue); font-weight: 700;
+    display: block; text-align: center; margin: 8px 0 0; color: #fff;
+    font-family: 'Inter', sans-serif; font-weight: 900;
+    font-size: clamp(11px, 1.5vw, 14px); letter-spacing: .3em; text-transform: uppercase;
+    text-shadow: 0 2px 12px rgba(0,0,0,.5);
   }
-  .flyer__mainlabel::before, .flyer__mainlabel::after { content: "— "; opacity: .5; }
-  .flyer__mainlabel::after { content: " —"; }
-
-  .flyer__meta {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
-    border-top: 1px solid rgba(255,255,255,.14); padding-top: clamp(18px, 2.4vw, 24px);
-    text-align: center;
-  }
-  .flyer__meta > div { display: flex; flex-direction: column; gap: 5px; }
-  .flyer__meta strong { font-family: 'Inter', sans-serif; font-weight: 900; color: #fff; font-size: clamp(13px, 1.5vw, 16px); letter-spacing: .06em; }
-  .flyer__meta strong.blue { color: var(--blue); }
-  .flyer__meta span { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.55); }
+  .flyer__mainlabel::before { content: "— "; opacity: .6; }
+  .flyer__mainlabel::after { content: " —"; opacity: .6; }
 
   @media (max-width: 520px) {
-    .flyer__title { font-size: clamp(40px, 13vw, 72px); }
-    .ufc-fighter__surname { font-size: clamp(20px, 6.4vw, 36px); }
-    .flyer__vsbadge { font-size: 24px; padding: 5px 12px; }
-    .flyer__name h3 { font-size: 18px; }
-    .flyer__meta { grid-template-columns: 1fr; gap: 12px; }
-    .flyer__meta > div { border-top: 1px dashed rgba(255,255,255,.1); padding-top: 10px; }
-    .flyer__meta > div:first-child { border-top: 0; padding-top: 0; }
+    .flyer { max-width: 430px; }
+    .ufc-fighter__surname { font-size: clamp(24px, 9vw, 46px); }
+    .flyer__brandpill { font-size: 10px; letter-spacing: .08em; padding: 6px 12px; }
+    .flyer__head .velada__nextbadge { display: none; }
+    .flyer__brands { font-size: 9px; letter-spacing: .08em; }
   }
 
   /* WBA source backlink + photo credit (Campeones) */
