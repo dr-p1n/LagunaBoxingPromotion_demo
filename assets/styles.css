@@ -1790,35 +1790,52 @@
     animation: ppvSheen 6s linear infinite;
   }
 
-  .flyer__bout {
-    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
-    gap: clamp(10px, 3vw, 44px);
+  /* UFC-style fighter stage: flanking portraits + center seam + vertical surnames */
+  .flyer__stage {
+    position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+    border: 1px solid rgba(255,255,255,.12); background: #000; overflow: hidden; isolation: isolate;
   }
-  .flyer__fighter { display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; min-width: 0; }
-  .flyer__photo {
-    width: 100%; max-width: 230px; aspect-ratio: 3 / 4;
-    background-size: cover; background-position: 50% 18%;
-    filter: grayscale(100%) contrast(1.12) brightness(.82);
-    border: 1px solid rgba(255,255,255,.16);
-    position: relative;
+  .flyer__stage::before {
+    content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 3px; transform: translateX(-50%);
+    background: linear-gradient(180deg, transparent, var(--blue) 16%, var(--blue) 84%, transparent);
+    box-shadow: 0 0 34px rgba(0,212,255,.7); z-index: 3;
   }
-  .flyer__fighter--right .flyer__photo { transform: scaleX(-1); }
-  .flyer__photo::after {
+  .ufc-fighter { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: #0a0a0a; }
+  .ufc-fighter__photo {
+    position: absolute; inset: 0; background-size: cover;
+    filter: grayscale(100%) contrast(1.2) brightness(.82);
+  }
+  .ufc-fighter--l .ufc-fighter__photo { background-position: 62% 14%; }
+  .ufc-fighter--r .ufc-fighter__photo { background-position: 38% 14%; }
+  .ufc-fighter::after {
     content: ""; position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,.6), transparent 55%),
-                linear-gradient(to var(--seam, right), rgba(0,212,255,.28), transparent 45%);
+    background:
+      linear-gradient(to bottom, transparent 36%, rgba(0,0,0,.9)),
+      radial-gradient(130% 90% at var(--seam,100%) 34%, rgba(0,212,255,.22), transparent 52%);
   }
-  .flyer__fighter--right .flyer__photo::after { --seam: left; }
-  .flyer__fighter h3 {
-    margin: 0; font-family: 'Inter', sans-serif; font-weight: 900;
-    font-size: clamp(18px, 2.5vw, 34px); line-height: 1; letter-spacing: -.01em;
-  }
-  .flyer__fighter p { margin: 0; font-size: clamp(10px, 1.1vw, 12px); letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.6); }
-  .flyer__vs {
+  .ufc-fighter--l::after { --seam: 100%; }
+  .ufc-fighter--r::after { --seam: 0%; }
+  .ufc-fighter__surname {
+    position: absolute; z-index: 4; top: 50%;
     font-family: 'Inter', sans-serif; font-weight: 900;
-    font-size: clamp(26px, 4.4vw, 56px); color: var(--blue);
-    text-shadow: 0 0 34px rgba(0,212,255,.6); line-height: 1;
+    font-size: clamp(26px, 4.6vw, 66px); letter-spacing: .01em; line-height: .85;
+    color: rgba(255,255,255,.95); text-transform: uppercase; white-space: nowrap;
+    writing-mode: vertical-rl; text-shadow: 0 2px 22px rgba(0,0,0,.9);
   }
+  .ufc-fighter--l .ufc-fighter__surname { left: 6px; transform: translateY(-50%) rotate(180deg); }
+  .ufc-fighter--r .ufc-fighter__surname { right: 6px; transform: translateY(-50%); }
+  .flyer__vsbadge {
+    position: absolute; z-index: 5; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    font-family: 'Inter', sans-serif; font-weight: 900; font-size: clamp(26px, 4.4vw, 58px); line-height: 1;
+    color: #fff; background: rgba(0,0,0,.62); border: 1px solid var(--blue);
+    padding: 6px 16px; box-shadow: 0 0 34px rgba(0,212,255,.55);
+    backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+  }
+
+  /* nickname + record under each fighter */
+  .flyer__names { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; text-align: center; }
+  .flyer__name h3 { margin: 0 0 5px; font-family: 'Inter', sans-serif; font-weight: 900; font-size: clamp(18px, 2.5vw, 32px); line-height: 1; letter-spacing: -.01em; }
+  .flyer__name p { margin: 0; font-size: clamp(10px, 1.1vw, 12px); letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.6); }
   .flyer__mainlabel {
     display: block; text-align: center; margin: 0;
     font-size: 11px; letter-spacing: .34em; text-transform: uppercase; color: var(--blue); font-weight: 700;
@@ -1836,14 +1853,11 @@
   .flyer__meta strong.blue { color: var(--blue); }
   .flyer__meta span { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.55); }
 
-  @media (max-width: 640px) {
-    .flyer__bout { grid-template-columns: 1fr 1fr; gap: 14px; }
-    .flyer__vs {
-      grid-column: 1 / -1; order: -1;
-      padding: 4px 14px; border: 1px solid var(--blue); background: rgba(0,212,255,.08);
-      justify-self: center; font-size: 22px;
-    }
-    .flyer__photo { max-width: 150px; }
+  @media (max-width: 520px) {
+    .flyer__title { font-size: clamp(40px, 13vw, 72px); }
+    .ufc-fighter__surname { font-size: clamp(20px, 6.4vw, 36px); }
+    .flyer__vsbadge { font-size: 24px; padding: 5px 12px; }
+    .flyer__name h3 { font-size: 18px; }
     .flyer__meta { grid-template-columns: 1fr; gap: 12px; }
     .flyer__meta > div { border-top: 1px dashed rgba(255,255,255,.1); padding-top: 10px; }
     .flyer__meta > div:first-child { border-top: 0; padding-top: 0; }
